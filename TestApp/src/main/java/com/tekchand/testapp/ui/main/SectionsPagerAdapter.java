@@ -9,13 +9,6 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
 import com.tekchand.testapp.R;
-import com.tekchand.testapp.ui.main.tab1.PlaceholderFragment;
-import com.tekchand.testapp.ui.main.tab2.Tab2Fragment;
-import com.tekchand.testapp.ui.main.tab3.VmFragment;
-import com.tekchand.testapp.ui.main.tab4.SessionFrag;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * A [FragmentPagerAdapter] that returns a fragment corresponding to
@@ -24,21 +17,33 @@ import java.util.List;
 public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
     @StringRes
-    private static final int[] TAB_TITLES = new int[]{R.string.tab_text_1, R.string.tab_text_2, R.string.tab_text_3, R.string.tab_text_4};
+    private static final int[] TAB_TITLES = new int[]{R.string.tab_text_1, R.string.tab_text_2, R.string.tab_text_3, R.string.tab_text_4, R.string.tab_text_5};
     private final Context mContext;
-    private List<Fragment> fragments = new ArrayList<>();
+
     public SectionsPagerAdapter(Context context, FragmentManager fm) {
         super(fm);
         mContext = context;
-        fragments.add(PlaceholderFragment.newInstance());
-        fragments.add(Tab2Fragment.newInstance());
-        fragments.add(VmFragment.newInstance());
-        fragments.add(SessionFrag.newInstance());
     }
 
     @Override
     public Fragment getItem(int position) {
-        return fragments.get(position);
+        // getItem is called to instantiate the fragment for the given page.
+        // Return a PlaceholderFragment (defined as a static inner class below).
+        switch (position) {
+            case 0:
+                return PlaceholderFragment.newInstance(position + 1);
+            case 1:
+                return Tab2Fragment.newInstance("Ram","Shyam");
+            case 2:
+                return vmfrag.newInstance();
+            case 3:
+                return SessionFrag.newInstance("Ram","Shyam");
+            case 4:
+                return CropFertilizer.newInstance(position);
+
+            default:
+                return null;
+        }
     }
 
     @Nullable
@@ -49,7 +54,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        // Show 4 total pages.
-        return 4;
+        // Show 5 total pages.
+        return 5;
     }
 }

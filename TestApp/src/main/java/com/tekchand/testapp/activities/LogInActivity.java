@@ -4,8 +4,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -15,6 +18,7 @@ import com.tekchand.testapp.R;
 import org.jetbrains.annotations.NotNull;
 
 import static com.tekchand.testapp.constant.Constants.EMAIL;
+import static com.tekchand.testapp.constant.Constants.IS_LOGIN;
 import static com.tekchand.testapp.constant.Constants.MyPREFERENCES;
 import static com.tekchand.testapp.constant.Constants.NAME;
 import static com.tekchand.testapp.constant.Constants.SET_ERROR;
@@ -31,16 +35,26 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
     private Button loginBtn;
     private SharedPreferences.Editor editor;
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
+        sharedPreferences = getApplicationContext().getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+        checkLogin();
         userNameText2 = findViewById(R.id.userNameText2);
         emailText2 = findViewById(R.id.emailText2);
         loginBtn = findViewById(R.id.loginbutton);
-        sharedPreferences = getApplicationContext().getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
         loginBtn.setOnClickListener(this);
+
+        emailText2.getEditText().setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                loginBtn.performClick();
+                return true;
+            }
+        });
     }
 
     /**
@@ -103,12 +117,39 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
                 if (!validEmail() || !validUserName()) {
                     return;
                 }
-                editor.putString(NAME, getData(userNameText2));
-                editor.putString(EMAIL, getData(emailText2));
-                editor.commit();
+                InputMethodManager imm = (InputMethodManager)getApplicationContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                createLoginSession();
                 Intent i = new Intent(LogInActivity.this, MainActivity.class);
                 startActivity(i);
                 break;
         }
+    }
+
+    public void createLoginSession(){
+        editor.putBoolean(IS_LOGIN, true);
+        editor.putString(NAME, getData(userNameText2));
+        editor.putString(EMAIL, getData(emailText2));
+        editor.commit();
+    }
+
+    public void checkLogin(){
+        // Check login status
+        if(isLoggedIn()){
+            // user is logged in redirect him to Main Activity
+            Intent i = new Intent(getApplicationContext(), MainActivity.class);
+            // Closing all the Activities
+            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+            // Add new Flag to start new Activity
+            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+            // Staring Main Activity
+            getApplicationContext().startActivity(i);
+        }
+    }
+
+    private boolean isLoggedIn() {
+        return sharedPreferences.getBoolean(IS_LOGIN, false);
     }
 }

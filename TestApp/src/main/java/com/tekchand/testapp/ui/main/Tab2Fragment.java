@@ -1,4 +1,4 @@
-package com.tekchand.testapp.ui.main.tab2;
+package com.tekchand.testapp.ui.main;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -8,55 +8,87 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.tekchand.testapp.R;
-import com.tekchand.testapp.ui.main.tab1.Human;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import static com.tekchand.testapp.utility.FakeData.getFakeData;
-
+/**
+ * A simple {@link Fragment} subclass.
+ * Activities that contain this fragment must implement the
+ * {@link OnFragmentInteractionListener} interface
+ * to handle interaction events.
+ * Use the {@link Tab2Fragment#newInstance} factory method to
+ * create an instance of this fragment.
+ */
 public class Tab2Fragment extends Fragment {
+    // TODO: Rename parameter arguments, choose names that match
+    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+    private static final String ARG_PARAM1 = "param1";
+    private static final String ARG_PARAM2 = "param2";
     private RecyclerView recyclerView;
-    private List<Human> humans = new ArrayList<>();
-    private CallbackInterface mListener;
-    private RecyclerView.Adapter adapter;
-    private HumanRecyclerAdapter.OnClickListener listener;
+
+
+
+
+
+
+    // TODO: Rename and change types of parameters
+    private String mParam1;
+    private String mParam2;
+
+    private OnFragmentInteractionListener mListener;
+
+    public Tab2Fragment() {
+        // Required empty public constructor
+    }
 
     /**
-     * get the new Instance of Tab2Fragment
-     * @return fragment a new instance of Tab2Fragment
+     * Use this factory method to create a new instance of
+     * this fragment using the provided parameters.
+     *
+     * @param param1 Parameter 1.
+     * @param param2 Parameter 2.
+     * @return A new instance of fragment Tab2Fragment.
      */
-    public static Tab2Fragment newInstance() {
+    // TODO: Rename and change types and number of parameters
+    public static Tab2Fragment newInstance(String param1, String param2) {
         Tab2Fragment fragment = new Tab2Fragment();
+        Bundle args = new Bundle();
+        args.putString(ARG_PARAM1, param1);
+        args.putString(ARG_PARAM2, param2);
+        fragment.setArguments(args);
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        humans = getFakeData();
+        if (getArguments() != null) {
+            mParam1 = getArguments().getString(ARG_PARAM1);
+            mParam2 = getArguments().getString(ARG_PARAM2);
+        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+
         return inflater.inflate(R.layout.fragment_tab2, container, false);
     }
+
+
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof CallbackInterface) {
-            mListener = (CallbackInterface) context;
+        if (context instanceof OnFragmentInteractionListener) {
+            mListener = (OnFragmentInteractionListener) context;
         } else {
             throw new RuntimeException(context.toString()
-                    + " must implement CallbackInterface");
+                    + " must implement OnFragmentInteractionListener");
         }
     }
 
@@ -69,7 +101,7 @@ public class Tab2Fragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        recyclerView = view.findViewById(R.id.listv);
+        recyclerView = (RecyclerView) view.findViewById(R.id.listv);
     }
 
     @Override
@@ -77,34 +109,8 @@ public class Tab2Fragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter = new HumanRecyclerAdapter(humans, new HumanRecyclerAdapter.OnClickListener() {
-            @Override
-            public void onClick(Human human) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-            builder.setMessage("Name: " + human.getName() + "\n" + "Location: " + human.getLocation() + "\n" + "Email: " + human.getEmail());
-            builder.setTitle("Hi");
-           // builder.setIcon(R.drawable.ic_close_black_24dp);
-            builder.setNegativeButton("Cancel", null);
-            builder.create();
-            builder.show();
-            }
-        });
-        recyclerView.setAdapter(adapter);
+        mListener.onFragmentInteraction(recyclerView);
     }
-
-
-
-
-    /**
-     * add the human to the list of humans
-     * @param human an instance of Human
-     */
-    public void updateList(Human human) {
-        humans.add(human);
-        adapter.notifyDataSetChanged();
-    }
-
-
 
     /**
      * This interface must be implemented by activities that contain this
@@ -116,6 +122,9 @@ public class Tab2Fragment extends Fragment {
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
      */
-    public interface CallbackInterface {
+    public interface OnFragmentInteractionListener {
+        // TODO: Update argument type and name
+        void onFragmentInteraction(RecyclerView recyclerView);
     }
 }
+

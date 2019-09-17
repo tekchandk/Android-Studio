@@ -17,9 +17,12 @@ import androidx.fragment.app.Fragment;
 import com.tekchand.testapp.R;
 import com.tekchand.testapp.activities.LogInActivity;
 
-import static com.tekchand.testapp.activities.LogInActivity.sharedPreferences;
+import static com.tekchand.testapp.constant.Constants.CROP;
 import static com.tekchand.testapp.constant.Constants.EMAIL;
+import static com.tekchand.testapp.constant.Constants.FERTILIZER;
+import static com.tekchand.testapp.constant.Constants.MyPREFERENCES;
 import static com.tekchand.testapp.constant.Constants.NAME;
+import static com.tekchand.testapp.constant.Constants.PREFERENCECROPFERT;
 
 
 /**
@@ -34,7 +37,11 @@ public class SessionFrag extends Fragment implements View.OnClickListener {
     private TextView userName;
     private TextView email;
     private Button logOutBtn;
+    private TextView cropName;
+    private TextView fertilizerName;
     private CallbackInterface mListener;
+    private SharedPreferences sharedPreferencesCF;
+    private SharedPreferences sharedPreferencesLogIn;
 
     /**
      * get the new Instance of SessionFrag
@@ -64,36 +71,53 @@ public class SessionFrag extends Fragment implements View.OnClickListener {
         logOutBtn = root.findViewById(R.id.logoutbutton);
         userName = root.findViewById(R.id.userNameTextView2);
         email = root.findViewById(R.id.emailTextView2);
+        cropName = root.findViewById(R.id.cropTextView);
+        fertilizerName = root.findViewById(R.id.fertilizerTextView);
+        sharedPreferencesLogIn = getContext().getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+        sharedPreferencesCF = getContext().getSharedPreferences(PREFERENCECROPFERT, Context.MODE_PRIVATE);
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        userName.setText(getString(R.string.user_name) + sharedPreferences.getString(NAME, null));
-        email.setText(getString(R.string.email_id) + sharedPreferences.getString(EMAIL,null));
+        userName.setText(getString(R.string.user_name) + sharedPreferencesLogIn.getString(NAME, null));
+        email.setText(getString(R.string.email_id) + sharedPreferencesLogIn.getString(EMAIL,null));
+        cropName.setText("Crop: " + sharedPreferencesCF.getString(CROP, null));
+        fertilizerName.setText("Fertilizer: " + sharedPreferencesCF.getString(FERTILIZER, null));
         // When logout button pressed. It will go on main screen.
         logOutBtn.setOnClickListener(this);
+    }
+
+
+
+    /**
+     * Update the data of crop and fertilizer in session fragment using SharedPreference
+     */
+    public void updateData() {
+        cropName.setText("Crop: " + sharedPreferencesCF.getString(CROP, null));
+        fertilizerName.setText("Fertilizer: " + sharedPreferencesCF.getString(FERTILIZER, null));
     }
 
     /**
      * Clear session details
      */
     public void logoutUser(){
-        SharedPreferences.Editor editor = sharedPreferences.edit();
+        SharedPreferences.Editor editor = sharedPreferencesLogIn.edit();
+        SharedPreferences.Editor editorCF = sharedPreferencesCF.edit();
         // Clearing all data from Shared Preferences
         editor.clear();
         editor.commit();
+        editorCF.clear();
+        editorCF.commit();
 
         // After logout redirect user to Login Activity
         Intent i = new Intent(getContext(), LogInActivity.class);
         // Closing all the Activities
         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
-        // Add new Flag to start new Activity
-        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-
         // Staring Login Activity
         getContext().startActivity(i);
+
     }
 
 

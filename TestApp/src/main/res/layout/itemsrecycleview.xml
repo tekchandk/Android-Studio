@@ -2,15 +2,27 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
+    <androidx.cardview.widget.CardView
+        android:id="@+id/person_card_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="20dp"
+        app:cardBackgroundColor="@color/SlateBlue">
 
     <TextView
         android:id="@+id/nameTextView"
         android:layout_width="match_parent"
         android:layout_height="30dp"
-        android:text="jhgjhgjhg"
         android:textSize="18sp"
         android:textStyle="bold"
+        android:textColor="@color/White"
+        android:layout_marginLeft="20dp"
         />
 
     <TextView
@@ -18,19 +30,28 @@
         android:layout_width="match_parent"
         android:layout_height="30dp"
         android:layout_marginTop="30dp"
-        android:text="jhjhbjhb"
         android:textSize="18sp"
         android:textStyle="bold"
+        android:textColor="@color/White"
+        android:layout_marginLeft="20dp"
         />
     <TextView
         android:id="@+id/emailTextView"
         android:layout_width="match_parent"
         android:layout_height="30dp"
         android:layout_marginTop="60dp"
-        android:text="jhjhbjhb"
-        android:textColor="#3F51B5"
+        android:textColor="@color/White"
         android:textSize="18dp"
         android:textStyle="bold"
+        android:layout_marginLeft="20dp"
         />
+    <!--<View
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="5dp"
+        android:layout_below="@+id/emailTextView"
+        android:background="@color/Black" />-->
+    </androidx.cardview.widget.CardView>
 
 </RelativeLayout>
