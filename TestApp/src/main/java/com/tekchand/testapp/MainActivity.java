@@ -1,6 +1,5 @@
 package com.tekchand.testapp;
 
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -41,7 +40,6 @@ public class MainActivity extends AppCompatActivity implements Tab2Fragment.OnFr
 
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -51,20 +49,17 @@ public class MainActivity extends AppCompatActivity implements Tab2Fragment.OnFr
         SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager());
         ViewPager viewPager = findViewById(R.id.view_pager);
         viewPager.setAdapter(sectionsPagerAdapter);
-
-
-
-                TabLayout tabs = findViewById(R.id.tabs);
+        TabLayout tabs = findViewById(R.id.tabs);
         tabs.setupWithViewPager(viewPager);
 
-
+        fakeData();
 
     }
 
 
     @Override
     public void onFragmentInteraction(RecyclerView recyclerView) {
-        fakeData();
+
         adapter = new HumanRecyclerAdapter(humans);
         recyclerView.setAdapter(adapter);
 
@@ -80,13 +75,8 @@ public class MainActivity extends AppCompatActivity implements Tab2Fragment.OnFr
         String email = human.getEmail();
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(email);
-
-
-
-            humans.add(human);
-            adapter.notifyDataSetChanged();
-
-
+        humans.add(human);
+        adapter.notifyDataSetChanged();
     }
 
     @Override
@@ -97,8 +87,9 @@ public class MainActivity extends AppCompatActivity implements Tab2Fragment.OnFr
         recyclerView.setAdapter(videoAdapter);
     }
 
+
     @Override
-    public void onFragmentInteraction(Uri uri) {
+    public void onFragmentInteractionTab4() {
 
     }
 }

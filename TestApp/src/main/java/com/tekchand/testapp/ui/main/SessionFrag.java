@@ -3,7 +3,6 @@ package com.tekchand.testapp.ui.main;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,11 +16,12 @@ import androidx.fragment.app.Fragment;
 
 import com.tekchand.testapp.R;
 
-import java.util.ArrayList;
-
+import static com.tekchand.testapp.ui.main.CropFertilizer.CROP;
+import static com.tekchand.testapp.ui.main.CropFertilizer.FERTILIZER;
+import static com.tekchand.testapp.ui.main.CropFertilizer.PREFERENCECROPFERT;
 import static com.tekchand.testapp.ui.main.LogIn.EMAIL;
+import static com.tekchand.testapp.ui.main.LogIn.MyPREFERENCES;
 import static com.tekchand.testapp.ui.main.LogIn.NAME;
-import static com.tekchand.testapp.ui.main.LogIn.sharedPreferences;
 
 
 /**
@@ -87,10 +87,14 @@ public class SessionFrag extends Fragment {
     }
 
 
-    TextView userName;
-    TextView email;
-    Button logOutBtn;
-
+    private TextView userName;
+    private TextView email;
+    private Button logOutBtn;
+    private TextView cropName;
+    private TextView fertilizerName;
+    private Button rerfreshBtn;
+    private SharedPreferences sharedPreferencesCF;
+    private SharedPreferences sharedPreferencesLogIn;
 
     @Override
     public void onViewCreated(@NonNull View root, @Nullable Bundle savedInstanceState) {
@@ -98,15 +102,29 @@ public class SessionFrag extends Fragment {
         logOutBtn = root.findViewById(R.id.logoutbutton);
         userName = root.findViewById(R.id.userNameTextView2);
         email = root.findViewById(R.id.emailTextView2);
+        cropName = root.findViewById(R.id.cropTextView);
+        fertilizerName = root.findViewById(R.id.fertilizerTextView);
+        rerfreshBtn = root.findViewById(R.id.refreshButton);
+        sharedPreferencesCF = getContext().getSharedPreferences(PREFERENCECROPFERT, Context.MODE_PRIVATE);
+        sharedPreferencesLogIn = getContext().getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+
     }
 
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        userName.setText("User Name: " + sharedPreferencesLogIn.getString(NAME, null));
+        email.setText("Email Id: " + sharedPreferencesLogIn.getString(EMAIL,null));
+        rerfreshBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cropName.setText("Crop: " + sharedPreferencesCF.getString(CROP, null));
+                fertilizerName.setText("Fertilizer: " + sharedPreferencesCF.getString(FERTILIZER, null));
 
-        userName.setText("User Name: " + sharedPreferences.getString(NAME, null));
-        email.setText("Email Id: " + sharedPreferences.getString(EMAIL,null));
+            }
+        });
+
 
         // When logout button pressed. It will go on main screen.
         logOutBtn.setOnClickListener(new View.OnClickListener() {
@@ -128,10 +146,7 @@ public class SessionFrag extends Fragment {
      * Clear session details
      * */
     public void logoutUser(){
-       // SharedPreferences.Editor editor = getUserDetailsFromLogIn.getEditor();
-        // Clearing all data from Shared Preferences
-       // editor.clear();
-        //editor.commit();
+
 
         // After logout redirect user to Loing Activity
         Intent i = new Intent(getContext(), LogIn.class);
@@ -145,17 +160,14 @@ public class SessionFrag extends Fragment {
         getContext().startActivity(i);
     }
 
-    public interface GetUserDetailsFromLogIn {
-         ArrayList<String> getUserDetails();
-         SharedPreferences.Editor getEditor();
-    }
+
 
 
 
     // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
+    public void onButtonPressed() {
         if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
+            mListener.onFragmentInteractionTab4();
         }
     }
 
@@ -188,6 +200,6 @@ public class SessionFrag extends Fragment {
      */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+        void onFragmentInteractionTab4();
     }
 }

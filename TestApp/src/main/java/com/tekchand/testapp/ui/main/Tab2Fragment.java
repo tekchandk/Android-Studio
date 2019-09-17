@@ -32,6 +32,8 @@ public class Tab2Fragment extends Fragment {
 
 
 
+
+
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -100,7 +102,6 @@ public class Tab2Fragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         recyclerView = (RecyclerView) view.findViewById(R.id.listv);
-
     }
 
     @Override

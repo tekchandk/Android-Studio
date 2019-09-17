@@ -17,7 +17,7 @@ import com.tekchand.testapp.R;
 public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
     @StringRes
-    private static final int[] TAB_TITLES = new int[]{R.string.tab_text_1, R.string.tab_text_2, R.string.tab_text_3, R.string.tab_text_4};
+    private static final int[] TAB_TITLES = new int[]{R.string.tab_text_1, R.string.tab_text_2, R.string.tab_text_3, R.string.tab_text_4, R.string.tab_text_5};
     private final Context mContext;
 
     public SectionsPagerAdapter(Context context, FragmentManager fm) {
@@ -38,6 +38,8 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
                 return vmfrag.newInstance();
             case 3:
                 return SessionFrag.newInstance("Ram","Shyam");
+            case 4:
+                return CropFertilizer.newInstance(position);
 
             default:
                 return null;
@@ -52,7 +54,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        // Show 4 total pages.
-        return 4;
+        // Show 5 total pages.
+        return 5;
     }
 }
