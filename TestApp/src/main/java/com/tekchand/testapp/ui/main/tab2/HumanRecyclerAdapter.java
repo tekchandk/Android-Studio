@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.tekchand.testapp.R;
@@ -13,10 +14,17 @@ import com.tekchand.testapp.ui.main.tab1.Human;
 
 import java.util.List;
 
-public class HumanRecyclerAdapter extends RecyclerView.Adapter<HumanRecyclerAdapter.SimpleViewHolder>{
+public class HumanRecyclerAdapter extends RecyclerView.Adapter<HumanRecyclerAdapter.SimpleViewHolder>  {
     private List<Human> humans;
-    public HumanRecyclerAdapter(List<Human> humans){
+    private OnClickListener listener;
+
+
+    public interface OnClickListener {
+        void onClick(Human human);
+    }
+    public HumanRecyclerAdapter(List<Human> humans,  OnClickListener listener){
         this.humans = humans;
+        this.listener = listener;
     }
 
     @NonNull
@@ -29,7 +37,7 @@ public class HumanRecyclerAdapter extends RecyclerView.Adapter<HumanRecyclerAdap
 
     @Override
     public void onBindViewHolder(@NonNull final SimpleViewHolder holder, @NonNull final int position) {
-        holder.dataBind(humans,position);
+        holder.dataBind(humans, position, listener);
     }
 
     @Override
@@ -41,16 +49,29 @@ public class HumanRecyclerAdapter extends RecyclerView.Adapter<HumanRecyclerAdap
         private TextView location;
         private TextView name;
         private TextView email;
+        private CardView cardView;
         private SimpleViewHolder(View itemView) {
             super(itemView);
             name = itemView.findViewById(R.id.nameTextView);
             location = itemView.findViewById(R.id.locTextView);
             email = itemView.findViewById(R.id.emailTextView);
+            cardView = itemView.findViewById(R.id.person_card_view);
         }
-        private void dataBind(List<Human> humans,int position) {
+
+        private void dataBind(final List<Human> humans, final int position, final OnClickListener listener) {
             name.setText(humans.get(position).getName());
             location.setText(humans.get(position).getLocation());
             email.setText(humans.get(position).getEmail());
+            cardView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    listener.onClick(humans.get(position));
+
+                }
+            });
         }
+
+
     }
+
 }

@@ -1,6 +1,7 @@
-package com.tekchand.testapp.ui.main.tab1;
+package com.tekchand.testapp.ui.main.tab5;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -16,28 +17,23 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.tekchand.testapp.R;
-import com.tekchand.testapp.activities.MainActivity;
 
+import static com.tekchand.testapp.constant.Constants.CROP;
+import static com.tekchand.testapp.constant.Constants.FERTILIZER;
+import static com.tekchand.testapp.constant.Constants.PREFERENCECROPFERT;
 import static com.tekchand.testapp.constant.Constants.SET_ERROR;
 
 /**
- * @author Tek Chand
- * A placeholder fragment is getting the information
+ * A CropFertilizer fragment containing a simple view.
  */
-public class PlaceholderFragment extends Fragment implements View.OnClickListener {
-    private Context mContext;
-    private CallbackInterface mListener;
-    private EditText nameText;
-    private EditText locText;
-    private EditText addrText;
-    private Button subBtn;
+public class CropFertilizerFragment extends Fragment implements View.OnClickListener {
 
-    /**
-     * create a new instance of PlaceholderFragment fragment
-     * @return fragment instance of PlaceholderFragment
-     */
-    public static PlaceholderFragment newInstance() {
-        PlaceholderFragment fragment = new PlaceholderFragment();
+    private CallbackInterface mListener;
+    private static SharedPreferences sharedPreferencesCropFert;
+    private SharedPreferences.Editor editor;
+
+    public static CropFertilizerFragment newInstance() {
+        CropFertilizerFragment fragment = new CropFertilizerFragment();
         return fragment;
     }
 
@@ -50,63 +46,56 @@ public class PlaceholderFragment extends Fragment implements View.OnClickListene
     public View onCreateView(
             @NonNull LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_main, container, false);
+        View root = inflater.inflate(R.layout.fragment_crop_fertilizer, container, false);
         return root;
     }
 
+    private EditText cropText;
+    private EditText fertilizerText;
+    private Button submitButton;
     @Override
     public void onViewCreated(@NonNull View root, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(root, savedInstanceState);
-        nameText = root.findViewById(R.id.nameText);
-        locText = root.findViewById(R.id.locText);
-        addrText = root.findViewById(R.id.emailText);
-        subBtn = root.findViewById(R.id.subBtn);
+        cropText = root.findViewById(R.id.cropText);
+        fertilizerText = root.findViewById(R.id.fertilizerText);
+        submitButton = root.findViewById(R.id.submitButton);
+        sharedPreferencesCropFert = getContext().getSharedPreferences(PREFERENCECROPFERT, Context.MODE_PRIVATE);
+        editor = sharedPreferencesCropFert.edit();
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        subBtn.setOnClickListener(this);
-        addrText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+        submitButton.setOnClickListener(this);
+        fertilizerText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                subBtn.performClick();
+                submitButton.performClick();
                 return true;
             }
         });
     }
 
     /**
-     * Return a boolean for checking a person's name is empty or not.
-     * If name is empty it will give an error.
-     * @return returnValue boolean true if name is valid, false otherwise
+     * to check the crop name
+     * @return if crop text is not empty return true otherwise false
      */
-    private boolean validName() {
-        return valid(nameText);
+    private boolean validCrop() {
+        return valid(cropText);
+    }
+    /**
+     * to check the fertilizer name
+     * @return if fertilizer text is not empty return true otherwise false
+     */
+    private boolean validFertilizer() {
+       return valid(fertilizerText);
     }
 
-    /**
-     * Return a boolean for checking a location is empty or not.
-     * If location is empty it will give an error.
-     * @return returnValue boolean true if location is valid, false otherwise
-     */
-    private boolean validLocation() {
-       return valid(locText);
-    }
 
     /**
-     * Return a boolean for checking a email is empty or not.
-     * If username is empty it will give an error.
-     * @return returnValue boolean true if email is valid, false otherwise
-     */
-    private boolean validAddr() {
-       return valid(addrText);
-    }
-
-    /**
-     * Return a boolean for checking a person's data is empty or not.
+     * Return a boolean for checking a Crop's name is empty or not.
      * @param view EditText
-     * @return returnValue boolean true if user is valid, false otherwise
+     * @return returnValue boolean true if crop name is valid, false otherwise
      */
     private boolean valid(EditText view) {
         if(getData(view).isEmpty()) {
@@ -132,21 +121,12 @@ public class PlaceholderFragment extends Fragment implements View.OnClickListene
         return "";
     }
 
-    /**
-     * Interface is implemented in MainActivity {@link MainActivity}
-     */
-    public interface CallbackInterface{
-        void onSubmit(Human human);
-    }
-
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        mContext = context;
         if (context instanceof CallbackInterface) {
             mListener = (CallbackInterface) context;
-        }
-        else {
+        } else {
             throw new RuntimeException(context.toString()
                     + " must implement CallbackInterface");
         }
@@ -154,16 +134,22 @@ public class PlaceholderFragment extends Fragment implements View.OnClickListene
 
     @Override
     public void onClick(View view) {
-        if(!validName() || ! validLocation() || !validAddr()) {
+
+        if(!validCrop() || ! validFertilizer()) {
             return;
         }
-        Human human = new Human(getData(nameText), getData(locText), getData(addrText));
-        mListener.onSubmit(human);
-        nameText.setText("");
-        locText.setText("");
-        addrText.setText("");
+        editor.putString(CROP, getData(cropText));
+        editor.putString(FERTILIZER, getData(fertilizerText));
+        editor.commit();
+        mListener.onSubmit();
+        cropText.setText("");
+        fertilizerText.setText("");
+        // For hiding the soft keyboard.
         InputMethodManager imm = (InputMethodManager)getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
+    public interface CallbackInterface {
+         void onSubmit();
+    }
 }
