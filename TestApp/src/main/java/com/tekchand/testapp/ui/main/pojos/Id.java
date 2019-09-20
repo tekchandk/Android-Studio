@@ -1,10 +1,12 @@
 package com.tekchand.testapp.ui.main.pojos;
 
+import androidx.annotation.NonNull;
+
 public class Id{
 	private String kind;
 	private String videoId;
 
-	public void setKind(String kind){
+	public void setKind(@NonNull final String kind){
 		this.kind = kind;
 	}
 
@@ -12,7 +14,7 @@ public class Id{
 		return kind;
 	}
 
-	public void setVideoId(String videoId){
+	public void setVideoId(@NonNull final String videoId){
 		this.videoId = videoId;
 	}
 

@@ -1,11 +1,13 @@
 package com.tekchand.testapp.ui.main.pojos;
 
+import androidx.annotation.NonNull;
+
 public class JsonMemberDefault{
 	private int width;
 	private String url;
 	private int height;
 
-	public void setWidth(int width){
+	public void setWidth(@NonNull final int width){
 		this.width = width;
 	}
 
@@ -13,7 +15,7 @@ public class JsonMemberDefault{
 		return width;
 	}
 
-	public void setUrl(String url){
+	public void setUrl(@NonNull final String url){
 		this.url = url;
 	}
 
@@ -21,7 +23,7 @@ public class JsonMemberDefault{
 		return url;
 	}
 
-	public void setHeight(int height){
+	public void setHeight(@NonNull final int height){
 		this.height = height;
 	}
 

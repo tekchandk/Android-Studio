@@ -14,26 +14,23 @@ import java.util.List;
 
 public class HumanRecyclerAdapter extends RecyclerView.Adapter<HumanRecyclerAdapter.SimpleViewHolder>{
     private List<Human> humans;
-
     public HumanRecyclerAdapter(List<Human> humans){
         this.humans = humans;
     }
 
     @NonNull
     @Override
-    public SimpleViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = (View) LayoutInflater.from(parent.getContext()).inflate(R.layout.itemsrecycleview,parent, false);
+    public SimpleViewHolder onCreateViewHolder(@NonNull final ViewGroup parent, @NonNull final int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.itemsrecycleview,parent, false);
         SimpleViewHolder viewHolder = new SimpleViewHolder(view);
         return viewHolder;
     }
 
-
     @Override
-    public void onBindViewHolder(@NonNull SimpleViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final SimpleViewHolder holder, @NonNull final int position) {
         holder.name.setText(humans.get(position).getName());
         holder.location.setText(humans.get(position).getLocation());
         holder.email.setText(humans.get(position).getEmail());
-
     }
 
     @Override
@@ -42,18 +39,14 @@ public class HumanRecyclerAdapter extends RecyclerView.Adapter<HumanRecyclerAdap
     }
 
     public static class SimpleViewHolder extends RecyclerView.ViewHolder{
-        public TextView location;
-        public TextView name;
-        public TextView email;
-        public SimpleViewHolder(View itemView) {
-
+        private TextView location;
+        private TextView name;
+        private TextView email;
+        private SimpleViewHolder(View itemView) {
             super(itemView);
-            name = (TextView)itemView.findViewById(R.id.nameTextView);
-            location = (TextView)itemView.findViewById(R.id.locTextView);
-            email = (TextView)itemView.findViewById(R.id.emailTextView);
-
+            name = itemView.findViewById(R.id.nameTextView);
+            location = itemView.findViewById(R.id.locTextView);
+            email = itemView.findViewById(R.id.emailTextView);
         }
-
     }
-
 }

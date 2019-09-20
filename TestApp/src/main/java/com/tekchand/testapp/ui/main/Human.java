@@ -1,18 +1,15 @@
 package com.tekchand.testapp.ui.main;
 
+import androidx.annotation.NonNull;
+
 import java.util.Objects;
 
 public class Human {
-
     private static int count = 0;
     private int id;
     private String name;
     private String location;
     private String email;
-
-    public Human(){
-
-    }
 
     private int autoId(){
         count = count +1;
@@ -30,7 +27,7 @@ public class Human {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(@NonNull final int  id) {
         this.id = id;
     }
 
@@ -38,7 +35,7 @@ public class Human {
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(@NonNull final String name) {
         this.name = name;
     }
 
@@ -46,7 +43,7 @@ public class Human {
         return location;
     }
 
-    public void setLocation(String location) {
+    public void setLocation(@NonNull final String location) {
         this.location = location;
     }
 
@@ -54,12 +51,12 @@ public class Human {
         return email;
     }
 
-    public void setEmail(String addr) {
-        this.email = addr;
+    public void setEmail(@NonNull final String email) {
+        this.email = email;
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(@NonNull final Object o) {
         if (this == o) return true;
         if (!(o instanceof Human)) return false;
         Human human = (Human) o;

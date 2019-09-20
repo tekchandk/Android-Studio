@@ -1,5 +1,7 @@
 package com.tekchand.testapp.ui.main;
 
+import androidx.annotation.NonNull;
+
 public class Video {
     private static int count = 0;
     private int id;
@@ -45,20 +47,19 @@ public class Video {
         return published;
     }
 
-
-    public void setId(int id) {
+    public void setId(@NonNull final int id) {
         this.id = id;
     }
 
-    public void setPublished(String published) {
+    public void setPublished(@NonNull final String published) {
         this.published = published;
     }
 
-    public void setTitle(String title) {
+    public void setTitle(@NonNull final String title) {
         this.title = title;
     }
 
-    public void setDescription(String description) {
+    public void setDescription(@NonNull final String description) {
         this.description = description;
     }
 }
