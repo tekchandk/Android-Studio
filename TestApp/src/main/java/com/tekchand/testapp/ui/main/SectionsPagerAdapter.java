@@ -31,14 +31,13 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
         // Return a PlaceholderFragment (defined as a static inner class below).
         switch (position) {
             case 0:
-                return PlaceholderFragment.newInstance(position + 1);
+                return PlaceholderFragment.newInstance();
             case 1:
-                return Tab2Fragment.newInstance("Ram","Shyam");
+                return Tab2Fragment.newInstance();
             case 2:
                 return vmfrag.newInstance();
             case 3:
-                return SessionFrag.newInstance("Ram","Shyam");
-
+                return SessionFrag.newInstance();
             default:
                 return null;
         }

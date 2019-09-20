@@ -19,27 +19,25 @@ public class VideoRecyclerAdapter extends RecyclerView.Adapter<VideoRecyclerAdap
     private List<Video> videos;
     private Context context;
 
-    public VideoRecyclerAdapter(Context context, List<Video> videos){
+    public VideoRecyclerAdapter(@NonNull final Context context, @NonNull final List<Video> videos){
         this.videos = videos;
         this.context = context;
     }
 
     @NonNull
     @Override
-    public SimpleViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = (View) LayoutInflater.from(parent.getContext()).inflate(R.layout.video_items,parent, false);
+    public SimpleViewHolder onCreateViewHolder(@NonNull ViewGroup parent, final int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.video_items,parent, false);
         SimpleViewHolder viewHolder = new SimpleViewHolder(view);
         return viewHolder;
     }
 
-
     @Override
-    public void onBindViewHolder(@NonNull SimpleViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull SimpleViewHolder holder, final int position) {
         Glide.with(context).load(videos.get(position).getUrl()).into(holder.image);
         holder.publish.setText(videos.get(position).getPublished());
         holder.title.setText(videos.get(position).getTitle());
         holder.desc.setText(videos.get(position).getDescription());
-
     }
 
     @Override
@@ -48,20 +46,16 @@ public class VideoRecyclerAdapter extends RecyclerView.Adapter<VideoRecyclerAdap
     }
 
     public static class SimpleViewHolder extends RecyclerView.ViewHolder{
-        public ImageView image;
-        public TextView publish;
-        public TextView title;
-        public TextView desc;
-        public SimpleViewHolder(View itemView) {
-
+        private ImageView image;
+        private TextView publish;
+        private TextView title;
+        private TextView desc;
+        private SimpleViewHolder(View itemView) {
             super(itemView);
-            image = (ImageView) itemView.findViewById(R.id.imageView);
-            publish = (TextView)itemView.findViewById(R.id.publish);
-            title = (TextView)itemView.findViewById(R.id.title);
-            desc = (TextView)itemView.findViewById(R.id.desc);
-
+            image = itemView.findViewById(R.id.imageView);
+            publish = itemView.findViewById(R.id.publish);
+            title = itemView.findViewById(R.id.title);
+            desc = itemView.findViewById(R.id.desc);
         }
-
     }
-
 }

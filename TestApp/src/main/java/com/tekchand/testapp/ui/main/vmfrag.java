@@ -31,35 +31,31 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
+import static com.tekchand.testapp.Constants.API_URL;
+
 public class vmfrag extends Fragment {
 
     private VmfragViewModel mViewModel;
     private Gson gson = new Gson();
     private RecyclerView recyclerView;
     private OnVideoFragmentListener mListener;
-    private static List<Video> videos = new ArrayList<>();
-
+    private List<Video> videos = new ArrayList<>();
 
     public static vmfrag newInstance() {
         return new vmfrag();
     }
 
-    private String apiKey = "AIzaSyCjmYJ7OKn0CQtxByFBxYkwGVU8jb7hV7k";
-    private String url= "https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=20&q=cricket&key="+ apiKey;
-
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        recyclerView = (RecyclerView) view.findViewById(R.id.recycleApi);
+        recyclerView = view.findViewById(R.id.recycleApi);
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
-                .url(url)
+                .url(API_URL)
                 .build();
-
         client.newCall(request).enqueue(new Callback(){
             @Override
             public void onFailure(Call call, IOException e) {
-
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -75,14 +71,11 @@ public class vmfrag extends Fragment {
                     public void run() {
                         try {
                             String str = response.body().string();
-                            //textView.setText(str);
                             JSONObject jsonObject = null;
                             try {
                                 jsonObject = new JSONObject(str);
                                 Responses responses= gson.fromJson(jsonObject.toString(), Responses.class);
                                 List<ItemsItem> items = responses.getItems();
-
-
                                 for(ItemsItem item : items){
                                     String title = item.getSnippet().getTitle();
                                     String publish = item.getSnippet().getPublishedAt();
@@ -91,12 +84,9 @@ public class vmfrag extends Fragment {
                                     Video video = new Video(publish, title, desc, url);
                                     videos.add(video);
                                 }
-
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
-
-
                         } catch (IOException ioe) {
                            ioe.printStackTrace();
                         }
@@ -104,22 +94,17 @@ public class vmfrag extends Fragment {
                 });
             }
         });
-
     }
-
-
 
     public List<Video> videoList(){
         return videos;
     }
 
-        @Override
+    @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.vmfrag_fragment, container, false);
     }
-
-
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -128,8 +113,6 @@ public class vmfrag extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mListener.onVideoFragmentInteraction(recyclerView);
-
-        // TODO: Use the ViewModel
     }
 
     @Override
@@ -148,7 +131,6 @@ public class vmfrag extends Fragment {
         super.onDetach();
         mListener = null;
     }
-
 
     public interface OnVideoFragmentListener {
         // TODO: Update argument type and name

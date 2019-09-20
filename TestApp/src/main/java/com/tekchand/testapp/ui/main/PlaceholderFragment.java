@@ -8,41 +8,33 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProviders;
 
 import com.tekchand.testapp.R;
+
+import static com.tekchand.testapp.Constants.SET_ERROR;
 
 /**
  * A placeholder fragment containing a simple view.
  */
 public class PlaceholderFragment extends Fragment {
+    private EditText nameText;
+    private EditText locText;
+    private EditText addrText;
+    private Button subBtn;
+    private Frag1 frag1;
 
-    private static final String ARG_SECTION_NUMBER = "section_number";
-
-    private PageViewModel pageViewModel;
-
-    public static PlaceholderFragment newInstance(int index) {
+    public static PlaceholderFragment newInstance() {
         PlaceholderFragment fragment = new PlaceholderFragment();
-        Bundle bundle = new Bundle();
-        bundle.putInt(ARG_SECTION_NUMBER, index);
-        fragment.setArguments(bundle);
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        pageViewModel = ViewModelProviders.of(this).get(PageViewModel.class);
-        int index = 1;
-        if (getArguments() != null) {
-            index = getArguments().getInt(ARG_SECTION_NUMBER);
-        }
-        pageViewModel.setIndex(index);
     }
 
     @Override
@@ -53,20 +45,13 @@ public class PlaceholderFragment extends Fragment {
         return root;
     }
 
-    TextView textView;
-    EditText nameText;
-    EditText locText;
-    EditText addrText;
-    Button subBtn;
-    Frag1 frag1;
     @Override
     public void onViewCreated(@NonNull View root, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(root, savedInstanceState);
         nameText = root.findViewById(R.id.nameText);
-        locText = (EditText) root.findViewById(R.id.locText);
-        addrText = (EditText) root.findViewById(R.id.emailText);
-        subBtn = (Button) root.findViewById(R.id.subBtn);
-
+        locText = root.findViewById(R.id.locText);
+        addrText = root.findViewById(R.id.emailText);
+        subBtn = root.findViewById(R.id.subBtn);
     }
 
     @Override
@@ -75,7 +60,6 @@ public class PlaceholderFragment extends Fragment {
         subBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 String name = nameText.getText().toString();
                 String location = locText.getText().toString();
                 String address = addrText.getText().toString();
@@ -87,21 +71,18 @@ public class PlaceholderFragment extends Fragment {
                 nameText.setText("");
                 locText.setText("");
                 addrText.setText("");
-
             }
         });
-
     }
 
     private boolean validName() {
         String userName =nameText.getText().toString();
         if(userName.isEmpty()) {
-            nameText.setError("Field can't be empty");
+            nameText.setError(SET_ERROR);
             return false;
         }
         else{
             nameText.setError(null);
-
             return true;
         }
     }
@@ -109,7 +90,7 @@ public class PlaceholderFragment extends Fragment {
     private boolean validLocation() {
         String email = locText.getText().toString();
         if(email.isEmpty()) {
-            locText.setError("Field can't be empty");
+            locText.setError(SET_ERROR);
             return false;
         }
         else{
@@ -117,10 +98,11 @@ public class PlaceholderFragment extends Fragment {
             return true;
         }
     }
+
     private boolean validAddr() {
         String email = addrText.getText().toString();
         if(email.isEmpty()) {
-            addrText.setError("Field can't be empty");
+            addrText.setError(SET_ERROR);
             return false;
         }
         else{
@@ -129,13 +111,10 @@ public class PlaceholderFragment extends Fragment {
         }
     }
 
-
-
-
-
     public interface Frag1{
         void onSubmit(Human human);
     }
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);

@@ -1,5 +1,7 @@
 package com.tekchand.testapp.ui.main.pojos;
 
+import androidx.annotation.NonNull;
+
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
@@ -13,7 +15,7 @@ public class Responses{
 	@SerializedName("items")
 	private List<ItemsItem> items;
 
-	public void setRegionCode(String regionCode){
+	public void setRegionCode(@NonNull final String regionCode){
 		this.regionCode = regionCode;
 	}
 
@@ -21,7 +23,7 @@ public class Responses{
 		return regionCode;
 	}
 
-	public void setKind(String kind){
+	public void setKind(@NonNull final String kind){
 		this.kind = kind;
 	}
 
@@ -30,7 +32,7 @@ public class Responses{
 		return kind;
 	}
 
-	public void setNextPageToken(String nextPageToken){
+	public void setNextPageToken(@NonNull final String nextPageToken){
 		this.nextPageToken = nextPageToken;
 	}
 
@@ -38,7 +40,7 @@ public class Responses{
 		return nextPageToken;
 	}
 
-	public void setPageInfo(PageInfo pageInfo){
+	public void setPageInfo(@NonNull final PageInfo pageInfo){
 		this.pageInfo = pageInfo;
 	}
 
@@ -46,7 +48,7 @@ public class Responses{
 		return pageInfo;
 	}
 
-	public void setEtag(String etag){
+	public void setEtag(@NonNull final String etag){
 		this.etag = etag;
 	}
 
@@ -54,7 +56,7 @@ public class Responses{
 		return etag;
 	}
 
-	public void setItems(List<ItemsItem> items){
+	public void setItems(@NonNull final List<ItemsItem> items){
 		this.items = items;
 	}
 

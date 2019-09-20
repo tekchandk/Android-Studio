@@ -1,5 +1,7 @@
 package com.tekchand.testapp.ui.main.pojos;
 
+import androidx.annotation.NonNull;
+
 public class Snippet{
 	private String publishedAt;
 	private String description;
@@ -9,7 +11,7 @@ public class Snippet{
 	private String channelTitle;
 	private String liveBroadcastContent;
 
-	public void setPublishedAt(String publishedAt){
+	public void setPublishedAt(@NonNull final String publishedAt){
 		this.publishedAt = publishedAt;
 	}
 
@@ -17,7 +19,7 @@ public class Snippet{
 		return publishedAt;
 	}
 
-	public void setDescription(String description){
+	public void setDescription(final String description){
 		this.description = description;
 	}
 
@@ -25,7 +27,7 @@ public class Snippet{
 		return description;
 	}
 
-	public void setTitle(String title){
+	public void setTitle(@NonNull final String title){
 		this.title = title;
 	}
 
@@ -33,7 +35,7 @@ public class Snippet{
 		return title;
 	}
 
-	public void setThumbnails(Thumbnails thumbnails){
+	public void setThumbnails(@NonNull final Thumbnails thumbnails){
 		this.thumbnails = thumbnails;
 	}
 
@@ -41,7 +43,7 @@ public class Snippet{
 		return thumbnails;
 	}
 
-	public void setChannelId(String channelId){
+	public void setChannelId(@NonNull final String channelId){
 		this.channelId = channelId;
 	}
 
@@ -49,7 +51,7 @@ public class Snippet{
 		return channelId;
 	}
 
-	public void setChannelTitle(String channelTitle){
+	public void setChannelTitle(@NonNull final String channelTitle){
 		this.channelTitle = channelTitle;
 	}
 
@@ -57,7 +59,7 @@ public class Snippet{
 		return channelTitle;
 	}
 
-	public void setLiveBroadcastContent(String liveBroadcastContent){
+	public void setLiveBroadcastContent(@NonNull final String liveBroadcastContent){
 		this.liveBroadcastContent = liveBroadcastContent;
 	}
 

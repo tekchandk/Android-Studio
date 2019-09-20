@@ -2,7 +2,6 @@ package com.tekchand.testapp;
 
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
@@ -24,6 +23,8 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static com.tekchand.testapp.Constants.REGREX;
+
 public class MainActivity extends AppCompatActivity implements Tab2Fragment.OnFragmentInteractionListener, PlaceholderFragment.Frag1, vmfrag.OnVideoFragmentListener, SessionFrag.OnFragmentInteractionListener {
 
     private RecyclerView.Adapter adapter;
@@ -39,54 +40,32 @@ public class MainActivity extends AppCompatActivity implements Tab2Fragment.OnFr
         humans.add(human3);
     }
 
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
-        Log.d("Main", "onCreate: ");
         setContentView(R.layout.activity_main);
         SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager());
         ViewPager viewPager = findViewById(R.id.view_pager);
         viewPager.setAdapter(sectionsPagerAdapter);
-
-
-
-                TabLayout tabs = findViewById(R.id.tabs);
+        TabLayout tabs = findViewById(R.id.tabs);
         tabs.setupWithViewPager(viewPager);
-
-
-
     }
-
 
     @Override
     public void onFragmentInteraction(RecyclerView recyclerView) {
         fakeData();
         adapter = new HumanRecyclerAdapter(humans);
         recyclerView.setAdapter(adapter);
-
     }
-
-
 
     @Override
     public void onSubmit(Human human) {
 
-
-        String regex = "^[A-Za-z0-9+_.-]+@(.+)$";
         String email = human.getEmail();
-        Pattern pattern = Pattern.compile(regex);
+        Pattern pattern = Pattern.compile(REGREX);
         Matcher matcher = pattern.matcher(email);
-
-
-
-            humans.add(human);
-            adapter.notifyDataSetChanged();
-
-
+        humans.add(human);
+        adapter.notifyDataSetChanged();
     }
 
     @Override

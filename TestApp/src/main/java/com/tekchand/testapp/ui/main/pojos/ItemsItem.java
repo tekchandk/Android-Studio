@@ -1,5 +1,7 @@
 package com.tekchand.testapp.ui.main.pojos;
 
+import androidx.annotation.NonNull;
+
 import com.google.gson.annotations.SerializedName;
 
 public class ItemsItem{
@@ -8,7 +10,7 @@ public class ItemsItem{
 	private String etag;
 	private Id id;
 
-	public void setSnippet(Snippet snippet){
+	public void setSnippet(@NonNull final Snippet snippet){
 		this.snippet = snippet;
 	}
 
@@ -16,7 +18,7 @@ public class ItemsItem{
 		return snippet;
 	}
 
-	public void setKind(String kind){
+	public void setKind(@NonNull final String kind){
 		this.kind = kind;
 	}
 
@@ -25,7 +27,7 @@ public class ItemsItem{
 		return kind;
 	}
 
-	public void setEtag(String etag){
+	public void setEtag(@NonNull final String etag){
 		this.etag = etag;
 	}
 
@@ -33,7 +35,7 @@ public class ItemsItem{
 		return etag;
 	}
 
-	public void setId(Id id){
+	public void setId(@NonNull final Id id){
 		this.id = id;
 	}
 

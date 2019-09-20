@@ -1,5 +1,7 @@
 package com.tekchand.testapp.ui.main.pojos;
 
+import androidx.annotation.NonNull;
+
 public class Thumbnails{
 	private JsonMemberDefault jsonMemberDefault;
 	private High high;
@@ -13,7 +15,7 @@ public class Thumbnails{
 		return jsonMemberDefault;
 	}
 
-	public void setHigh(High high){
+	public void setHigh(@NonNull final High high){
 		this.high = high;
 	}
 
@@ -21,7 +23,7 @@ public class Thumbnails{
 		return high;
 	}
 
-	public void setMedium(Medium medium){
+	public void setMedium(@NonNull final Medium medium){
 		this.medium = medium;
 	}
 

@@ -1,10 +1,12 @@
 package com.tekchand.testapp.ui.main.pojos;
 
+import androidx.annotation.NonNull;
+
 public class PageInfo{
 	private int totalResults;
 	private int resultsPerPage;
 
-	public void setTotalResults(int totalResults){
+	public void setTotalResults(@NonNull final int totalResults){
 		this.totalResults = totalResults;
 	}
 
@@ -12,7 +14,7 @@ public class PageInfo{
 		return totalResults;
 	}
 
-	public void setResultsPerPage(int resultsPerPage){
+	public void setResultsPerPage(@NonNull final int resultsPerPage){
 		this.resultsPerPage = resultsPerPage;
 	}
 
