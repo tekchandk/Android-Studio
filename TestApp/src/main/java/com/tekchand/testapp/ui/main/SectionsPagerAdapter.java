@@ -9,6 +9,10 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
 import com.tekchand.testapp.R;
+import com.tekchand.testapp.ui.main.tab1.PlaceholderFragment;
+import com.tekchand.testapp.ui.main.tab2.Tab2Fragment;
+import com.tekchand.testapp.ui.main.tab3.vmfrag;
+import com.tekchand.testapp.ui.main.tab4.SessionFrag;
 
 /**
  * A [FragmentPagerAdapter] that returns a fragment corresponding to

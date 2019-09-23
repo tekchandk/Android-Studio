@@ -1,4 +1,4 @@
-package com.tekchand.testapp;
+package com.tekchand.testapp.constant;
 
 public class Constants {
     public static final String REGREX = "^[A-Za-z0-9+_.-]+@(.+)$";

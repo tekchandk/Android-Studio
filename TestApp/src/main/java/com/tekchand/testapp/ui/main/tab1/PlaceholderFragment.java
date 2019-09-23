@@ -1,4 +1,4 @@
-package com.tekchand.testapp.ui.main;
+package com.tekchand.testapp.ui.main.tab1;
 
 import android.app.Activity;
 import android.content.Context;
@@ -15,7 +15,7 @@ import androidx.fragment.app.Fragment;
 
 import com.tekchand.testapp.R;
 
-import static com.tekchand.testapp.Constants.SET_ERROR;
+import static com.tekchand.testapp.constant.Constants.SET_ERROR;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -76,8 +76,7 @@ public class PlaceholderFragment extends Fragment {
     }
 
     private boolean validName() {
-        String userName =nameText.getText().toString();
-        if(userName.isEmpty()) {
+        if(getData(nameText).isEmpty()) {
             nameText.setError(SET_ERROR);
             return false;
         }
@@ -88,8 +87,7 @@ public class PlaceholderFragment extends Fragment {
     }
 
     private boolean validLocation() {
-        String email = locText.getText().toString();
-        if(email.isEmpty()) {
+        if(getData(locText).isEmpty()) {
             locText.setError(SET_ERROR);
             return false;
         }
@@ -100,8 +98,8 @@ public class PlaceholderFragment extends Fragment {
     }
 
     private boolean validAddr() {
-        String email = addrText.getText().toString();
-        if(email.isEmpty()) {
+
+        if(getData(addrText).isEmpty()) {
             addrText.setError(SET_ERROR);
             return false;
         }
@@ -109,6 +107,19 @@ public class PlaceholderFragment extends Fragment {
             addrText.setError(null);
             return true;
         }
+    }
+
+    private String getData(View view) {
+        EditText editText = (EditText) view;
+        switch (editText.getId()) {
+            case R.id.nameText:
+                return nameText.getText().toString();
+            case R.id.locText:
+                return locText.getText().toString();
+            case R.id.emailText:
+                return addrText.getText().toString();
+        }
+        return "";
     }
 
     public interface Frag1{

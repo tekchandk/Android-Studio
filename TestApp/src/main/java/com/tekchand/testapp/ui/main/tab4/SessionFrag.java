@@ -1,4 +1,4 @@
-package com.tekchand.testapp.ui.main;
+package com.tekchand.testapp.ui.main.tab4;
 
 import android.content.Context;
 import android.content.Intent;
@@ -15,10 +15,11 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.tekchand.testapp.R;
+import com.tekchand.testapp.activity.LogInActivity;
 
-import static com.tekchand.testapp.Constants.EMAIL;
-import static com.tekchand.testapp.Constants.NAME;
-import static com.tekchand.testapp.ui.main.LogIn.sharedPreferences;
+import static com.tekchand.testapp.activity.LogInActivity.sharedPreferences;
+import static com.tekchand.testapp.constant.Constants.EMAIL;
+import static com.tekchand.testapp.constant.Constants.NAME;
 
 
 /**
@@ -89,7 +90,7 @@ public class SessionFrag extends Fragment {
         //editor.commit();
 
         // After logout redirect user to Login Activity
-        Intent i = new Intent(getContext(), LogIn.class);
+        Intent i = new Intent(getContext(), LogInActivity.class);
         // Closing all the Activities
         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
