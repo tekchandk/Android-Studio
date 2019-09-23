@@ -1,4 +1,4 @@
-package com.tekchand.testapp.ui.main.pojos;
+package com.tekchand.testapp.ui.main.models;
 
 import androidx.annotation.NonNull;
 

@@ -1,4 +1,4 @@
-package com.tekchand.testapp.ui.main;
+package com.tekchand.testapp.ui.main.tab3;
 
 import android.content.Context;
 import android.view.LayoutInflater;

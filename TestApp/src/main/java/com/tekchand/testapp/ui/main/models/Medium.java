@@ -1,8 +1,8 @@
-package com.tekchand.testapp.ui.main.pojos;
+package com.tekchand.testapp.ui.main.models;
 
 import androidx.annotation.NonNull;
 
-public class JsonMemberDefault{
+public class Medium{
 	private int width;
 	private String url;
 	private int height;
@@ -34,7 +34,7 @@ public class JsonMemberDefault{
 	@Override
  	public String toString(){
 		return 
-			"JsonMemberDefault{" + 
+			"Medium{" + 
 			"width = '" + width + '\'' + 
 			",url = '" + url + '\'' + 
 			",height = '" + height + '\'' + 

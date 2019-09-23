@@ -1,4 +1,4 @@
-package com.tekchand.testapp.ui.main;
+package com.tekchand.testapp.ui.main.tab3;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -9,14 +9,13 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.gson.Gson;
 import com.tekchand.testapp.R;
-import com.tekchand.testapp.ui.main.pojos.ItemsItem;
-import com.tekchand.testapp.ui.main.pojos.Responses;
+import com.tekchand.testapp.ui.main.models.ItemsItem;
+import com.tekchand.testapp.ui.main.models.Responses;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -31,15 +30,16 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-import static com.tekchand.testapp.Constants.API_URL;
+import static com.tekchand.testapp.constant.Constants.API_URL;
 
 public class vmfrag extends Fragment {
 
-    private VmfragViewModel mViewModel;
     private Gson gson = new Gson();
     private RecyclerView recyclerView;
     private OnVideoFragmentListener mListener;
     private List<Video> videos = new ArrayList<>();
+    private RecyclerView.Adapter videoAdapter;
+
 
     public static vmfrag newInstance() {
         return new vmfrag();
@@ -96,9 +96,6 @@ public class vmfrag extends Fragment {
         });
     }
 
-    public List<Video> videoList(){
-        return videos;
-    }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -109,10 +106,10 @@ public class vmfrag extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = ViewModelProviders.of(this).get(VmfragViewModel.class);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        mListener.onVideoFragmentInteraction(recyclerView);
+        videoAdapter = new VideoRecyclerAdapter(getContext(), videos);
+        recyclerView.setAdapter(videoAdapter);
     }
 
     @Override
@@ -134,7 +131,7 @@ public class vmfrag extends Fragment {
 
     public interface OnVideoFragmentListener {
         // TODO: Update argument type and name
-        void onVideoFragmentInteraction(RecyclerView recyclerView);
+        void onVideoFragmentInteraction();
     }
 
 }

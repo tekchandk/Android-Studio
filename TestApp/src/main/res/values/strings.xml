@@ -6,6 +6,7 @@
     <string name="tab_text_4">Tab 4</string>
     <string name="user_name">User Name: </string>
     <string name="email_id">Email Id: </string>
+    <string name="sign_in_invalid_field"> Field cannot be empty</string>
 
 
 

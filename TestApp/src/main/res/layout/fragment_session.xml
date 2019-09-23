@@ -3,11 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context=".ui.main.SessionFrag">
-
-    <!-- TODO: Update blank fragment layout -->
-
-
+    tools:context=".ui.main.tab4.SessionFrag">
 
     <TextView
         android:layout_width="wrap_content"
