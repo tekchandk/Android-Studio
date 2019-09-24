@@ -1,4 +1,4 @@
-package com.tekchand.testapp.activity;
+package com.tekchand.testapp.activities;
 
 import android.content.Context;
 import android.content.Intent;
@@ -15,8 +15,14 @@ import com.tekchand.testapp.R;
 import static com.tekchand.testapp.constant.Constants.EMAIL;
 import static com.tekchand.testapp.constant.Constants.MyPREFERENCES;
 import static com.tekchand.testapp.constant.Constants.NAME;
+import static com.tekchand.testapp.constant.Constants.SET_ERROR;
 
-public class LogInActivity extends AppCompatActivity implements View.OnClickListener{
+/**
+ * @author Tek Chand
+ * This activity takes user's username and email for sign in the app.
+ * where a user can type his valid username and email to login.
+ */
+public class LogInActivity extends AppCompatActivity implements View.OnClickListener {
     public static SharedPreferences sharedPreferences;
     private TextInputLayout userNameText2;
     private TextInputLayout emailText2;
@@ -35,35 +41,50 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
         loginBtn.setOnClickListener(this);
     }
 
+    /**
+     * Return a boolean for checking a username is empty or not.
+     * If username is empty it will give an error.
+     * @return returnValue boolean true if username is valid, false otherwise
+     */
     private boolean validUserName() {
-        if(getData(userNameText2).isEmpty()) {
-            userNameText2.setError(getString(R.string.sign_in_invalid_field));
-            return false;
-        }
-        else{
-            userNameText2.setError(null);
-            return true;
-        }
+        return valid(userNameText2);
     }
 
+    /**
+     * Return a boolean for checking a email is empty or not.
+     * If username is empty it will give an error.
+     * @return returnValue boolean true if email is valid, false otherwise
+     */
     private boolean validEmail() {
-        if(getData(emailText2).isEmpty()) {
-            emailText2.setError(getString(R.string.sign_in_invalid_field));
+        return valid(emailText2);
+    }
+
+    /**
+     * Return a boolean for checking a user's data is empty or not.
+     * @param view TextInputLayout
+     * @return returnValue boolean true if user is valid, false otherwise
+     */
+    private boolean valid(TextInputLayout view) {
+        if(getData(view).isEmpty()) {
+            view.setError(SET_ERROR);
             return false;
         }
         else{
-           emailText2.setError(null);
+            view.setError(null);
             return true;
         }
     }
 
+
+    /**
+     * Get the string from the edit text.
+     * @param view
+     * @return the string which is typed in the edit text.
+     */
     private String getData(View view) {
-        TextInputLayout editText = (TextInputLayout) view;
-        switch (editText.getId()) {
-            case R.id.userNameText2:
-                return userNameText2.getEditText().getText().toString();
-            case R.id.emailText2:
-                return emailText2.getEditText().getText().toString();
+        if (view instanceof TextInputLayout) {
+            TextInputLayout v = (TextInputLayout) view;
+            return v.getEditText().getText().toString();
         }
         return "";
     }
@@ -82,7 +103,6 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
                 Intent i = new Intent(LogInActivity.this, MainActivity.class);
                 startActivity(i);
                 break;
-
         }
     }
 }
