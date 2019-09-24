@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:background="#c6d97f"
+    android:background="#0F3C4E"
     android:fitsSystemWindows="true">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -21,8 +21,9 @@
             android:minHeight="?actionBarSize"
             android:padding="@dimen/appbar_padding"
             android:text="@string/app_name"
+            android:textColor="@color/White"
             android:textAlignment="center"
-            android:background="#5b39c6"
+            android:background="@color/Navy"
             android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title" />
 
     </com.google.android.material.appbar.AppBarLayout>
@@ -38,7 +39,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="User Name"
-            android:textColor="#000"
+            android:textColor="@color/White"
             android:inputType="text"/>
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -53,7 +54,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Email Id"
-            android:textColor="#000"
+            android:textColor="@color/White"
             android:inputType="textEmailAddress"
             />
     </com.google.android.material.textfield.TextInputLayout>
@@ -63,8 +64,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Login"
-        android:textColor="#fff"
-        android:background="#000"
+        android:textColor="@color/White"
+        android:background="@color/DarkCyan"
         android:id="@+id/loginbutton"
         android:layout_marginLeft="160dp"
         />

@@ -1,10 +1,9 @@
-package com.tekchand.testapp.activity;
+package com.tekchand.testapp.activities;
 
 import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
@@ -12,32 +11,17 @@ import com.tekchand.testapp.R;
 import com.tekchand.testapp.ui.main.SectionsPagerAdapter;
 import com.tekchand.testapp.ui.main.tab1.Human;
 import com.tekchand.testapp.ui.main.tab1.PlaceholderFragment;
-import com.tekchand.testapp.ui.main.tab2.HumanRecyclerAdapter;
 import com.tekchand.testapp.ui.main.tab2.Tab2Fragment;
-import com.tekchand.testapp.ui.main.tab3.Video;
 import com.tekchand.testapp.ui.main.tab3.vmfrag;
 import com.tekchand.testapp.ui.main.tab4.SessionFrag;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import static com.tekchand.testapp.constant.Constants.REGREX;
-
+/**
+ * @author Tek Chand
+ * This activity show the data in four tab layout using.
+ */
 public class MainActivity extends AppCompatActivity implements Tab2Fragment.OnFragmentInteractionListener, PlaceholderFragment.Frag1, vmfrag.OnVideoFragmentListener, SessionFrag.OnFragmentInteractionListener {
 
-    private RecyclerView.Adapter adapter;
-    private List<Human> humans = new ArrayList<>();
-    private List<Video> videos = new ArrayList<>();
-    void fakeData(){
-        Human human1 = new Human("Tek", "Sikar","tekchand@iitk.ac.in");
-        Human human2 = new Human ("Ayush", "Kanpur", "ayushg@iitk.ac.in");
-        Human human3 = new Human("Atul", "BHU", "atul@iitbhu.ac.in");
-        humans.add(human1);
-        humans.add(human2);
-        humans.add(human3);
-    }
+    private Tab2Fragment tab2Fragment = new Tab2Fragment();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,20 +35,13 @@ public class MainActivity extends AppCompatActivity implements Tab2Fragment.OnFr
     }
 
     @Override
-    public void onFragmentInteraction(RecyclerView recyclerView) {
-        fakeData();
-        adapter = new HumanRecyclerAdapter(humans);
-        recyclerView.setAdapter(adapter);
+    public void onFragmentTab2Interaction() {
+
     }
 
     @Override
     public void onSubmit(Human human) {
-
-        String email = human.getEmail();
-        Pattern pattern = Pattern.compile(REGREX);
-        Matcher matcher = pattern.matcher(email);
-        humans.add(human);
-        adapter.notifyDataSetChanged();
+      tab2Fragment.updateList(human);
     }
 
     @Override

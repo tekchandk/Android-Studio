@@ -13,15 +13,22 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.tekchand.testapp.R;
+import com.tekchand.testapp.ui.main.tab1.Human;
+import com.tekchand.testapp.utility.FakeData;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Tab2Fragment extends Fragment {
     private RecyclerView recyclerView;
+    private static List<Human> humans = new ArrayList<>();
     private OnFragmentInteractionListener mListener;
+    private RecyclerView.Adapter adapter;
 
-    public Tab2Fragment() {
-        // Required empty public constructor
-    }
-
+    /**
+     * get the new Instance of Tab2Fragment
+     * @return fragment a new instance of Tab2Fragment
+     */
     public static Tab2Fragment newInstance() {
         Tab2Fragment fragment = new Tab2Fragment();
         return fragment;
@@ -30,6 +37,8 @@ public class Tab2Fragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FakeData fakeData = new FakeData();
+        humans = fakeData.getFakeData();
     }
 
     @Override
@@ -64,11 +73,21 @@ public class Tab2Fragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        mListener.onFragmentTab2Interaction();
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        mListener.onFragmentInteraction(recyclerView);
+        adapter = new HumanRecyclerAdapter(humans);
+        recyclerView.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
     }
 
+    /**
+     * add the human to the list of humans
+     * @param human an instance of Human
+     */
+    public void updateList(Human human) {
+        humans.add(human);
+    }
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -80,8 +99,6 @@ public class Tab2Fragment extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(RecyclerView recyclerView);
+        void onFragmentTab2Interaction();
     }
 }
-

@@ -14,11 +14,13 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.tekchand.testapp.R;
+import com.tekchand.testapp.activities.MainActivity;
 
 import static com.tekchand.testapp.constant.Constants.SET_ERROR;
 
 /**
- * A placeholder fragment containing a simple view.
+ * @author Tek Chand
+ * A placeholder fragment is getting the information
  */
 public class PlaceholderFragment extends Fragment {
     private EditText nameText;
@@ -27,6 +29,10 @@ public class PlaceholderFragment extends Fragment {
     private Button subBtn;
     private Frag1 frag1;
 
+    /**
+     * create a new instance of PlaceholderFragment fragment
+     * @return fragment fragment of PlaceholderFragment
+     */
     public static PlaceholderFragment newInstance() {
         PlaceholderFragment fragment = new PlaceholderFragment();
         return fragment;
@@ -60,10 +66,7 @@ public class PlaceholderFragment extends Fragment {
         subBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String name = nameText.getText().toString();
-                String location = locText.getText().toString();
-                String address = addrText.getText().toString();
-                Human human = new Human(name, location, address);
+                Human human = new Human(getData(nameText), getData(locText), getData(addrText));
                 if(!validName() || ! validLocation() || !validAddr()) {
                     return;
                 }
@@ -75,53 +78,65 @@ public class PlaceholderFragment extends Fragment {
         });
     }
 
+    /**
+     * Return a boolean for checking a person's name is empty or not.
+     * If name is empty it will give an error.
+     * @return returnValue boolean true if name is valid, false otherwise
+     */
     private boolean validName() {
-        if(getData(nameText).isEmpty()) {
-            nameText.setError(SET_ERROR);
-            return false;
-        }
-        else{
-            nameText.setError(null);
-            return true;
-        }
+        return valid(nameText);
     }
 
+    /**
+     * Return a boolean for checking a location is empty or not.
+     * If location is empty it will give an error.
+     * @return returnValue boolean true if location is valid, false otherwise
+     */
     private boolean validLocation() {
-        if(getData(locText).isEmpty()) {
-            locText.setError(SET_ERROR);
-            return false;
-        }
-        else{
-            locText.setError(null);
-            return true;
-        }
+       return valid(locText);
     }
 
+    /**
+     * Return a boolean for checking a email is empty or not.
+     * If username is empty it will give an error.
+     * @return returnValue boolean true if email is valid, false otherwise
+     */
     private boolean validAddr() {
+       return valid(addrText);
+    }
 
-        if(getData(addrText).isEmpty()) {
-            addrText.setError(SET_ERROR);
+    /**
+     * Return a boolean for checking a person's data is empty or not.
+     * @param view EditText
+     * @return returnValue boolean true if user is valid, false otherwise
+     */
+    private boolean valid(EditText view) {
+        if(getData(view).isEmpty()) {
+            view.setError(SET_ERROR);
             return false;
         }
         else{
-            addrText.setError(null);
+            view.setError(null);
             return true;
         }
     }
 
+    /**
+     * Get the string from the edit text.
+     * @param view
+     * @return the string which is typed in the edit text.
+     */
     private String getData(View view) {
-        EditText editText = (EditText) view;
-        switch (editText.getId()) {
-            case R.id.nameText:
-                return nameText.getText().toString();
-            case R.id.locText:
-                return locText.getText().toString();
-            case R.id.emailText:
-                return addrText.getText().toString();
+        if (view instanceof EditText) {
+            EditText v = (EditText) view;
+            return v.getText().toString();
         }
         return "";
     }
 
+    /**
+     * Interface is implemented in MainActivity {@link MainActivity}
+     */
     public interface Frag1{
         void onSubmit(Human human);
     }
@@ -134,8 +149,7 @@ public class PlaceholderFragment extends Fragment {
         try {
             frag1 = (Frag1) activity;
         }
-        catch(ClassCastException e)
-        {
+        catch(ClassCastException e) {
             throw new ClassCastException(activity.toString() + "must override on message");
         }
     }
