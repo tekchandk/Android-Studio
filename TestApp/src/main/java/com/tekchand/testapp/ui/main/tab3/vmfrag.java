@@ -40,7 +40,7 @@ public class vmfrag extends Fragment {
 
     private Gson gson = new Gson();
     private RecyclerView recyclerView;
-    private OnVideoFragmentListener mListener;
+    private CallbackInterface mListener;
     private List<Video> videos = new ArrayList<>();
     private RecyclerView.Adapter videoAdapter;
 
@@ -119,11 +119,11 @@ public class vmfrag extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnVideoFragmentListener) {
-            mListener = (OnVideoFragmentListener) context;
+        if (context instanceof CallbackInterface) {
+            mListener = (CallbackInterface) context;
         } else {
             throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
+                    + " must implement CallbackInterface");
         }
     }
 
@@ -133,9 +133,8 @@ public class vmfrag extends Fragment {
         mListener = null;
     }
 
-    public interface OnVideoFragmentListener {
-        // TODO: Update argument type and name
-        void onVideoFragmentInteraction();
+    public interface CallbackInterface {
+
     }
 
 }

@@ -3,7 +3,6 @@ package com.tekchand.testapp.ui.main.tab4;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,7 +25,7 @@ import static com.tekchand.testapp.constant.Constants.NAME;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link OnFragmentInteractionListener} interface
+ * {@link CallbackInterface} interface
  * to handle interaction events.
  * Use the {@link SessionFrag#newInstance} factory method to
  * create an instance of this fragment.
@@ -35,7 +34,7 @@ public class SessionFrag extends Fragment {
     private TextView userName;
     private TextView email;
     private Button logOutBtn;
-    private OnFragmentInteractionListener mListener;
+    private CallbackInterface mListener;
 
     /**
      * get the new Instance of SessionFrag
@@ -106,11 +105,11 @@ public class SessionFrag extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
+        if (context instanceof CallbackInterface) {
+            mListener = (CallbackInterface) context;
         } else {
             throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
+                    + " must implement CallbackInterface");
         }
     }
 
@@ -130,7 +129,6 @@ public class SessionFrag extends Fragment {
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
      */
-    public interface OnFragmentInteractionListener {
-        void onFragmentInteraction(Uri uri);
+    public interface CallbackInterface {
     }
 }

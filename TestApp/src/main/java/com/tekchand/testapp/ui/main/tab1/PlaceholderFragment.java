@@ -1,6 +1,5 @@
 package com.tekchand.testapp.ui.main.tab1;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -23,15 +22,16 @@ import static com.tekchand.testapp.constant.Constants.SET_ERROR;
  * A placeholder fragment is getting the information
  */
 public class PlaceholderFragment extends Fragment {
+    private Context mContext;
+    private CallbackInterface mListener;
     private EditText nameText;
     private EditText locText;
     private EditText addrText;
     private Button subBtn;
-    private Frag1 frag1;
 
     /**
      * create a new instance of PlaceholderFragment fragment
-     * @return fragment fragment of PlaceholderFragment
+     * @return fragment instance of PlaceholderFragment
      */
     public static PlaceholderFragment newInstance() {
         PlaceholderFragment fragment = new PlaceholderFragment();
@@ -70,7 +70,7 @@ public class PlaceholderFragment extends Fragment {
                 if(!validName() || ! validLocation() || !validAddr()) {
                     return;
                 }
-                frag1.onSubmit(human);
+                mListener.onSubmit(human);
                 nameText.setText("");
                 locText.setText("");
                 addrText.setText("");
@@ -137,20 +137,20 @@ public class PlaceholderFragment extends Fragment {
     /**
      * Interface is implemented in MainActivity {@link MainActivity}
      */
-    public interface Frag1{
+    public interface CallbackInterface{
         void onSubmit(Human human);
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        Activity activity = (Activity) context;
-
-        try {
-            frag1 = (Frag1) activity;
+        mContext = context;
+        if (context instanceof CallbackInterface) {
+            mListener = (CallbackInterface) context;
         }
-        catch(ClassCastException e) {
-            throw new ClassCastException(activity.toString() + "must override on message");
+        else {
+            throw new RuntimeException(context.toString()
+                    + " must implement CallbackInterface");
         }
-    }
+        }
 }

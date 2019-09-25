@@ -46,7 +46,7 @@ public class Human {
     }
 
     /**
-     * Sets Id
+     * Sets Id of a person
      * @param id id of a person
      */
     public void setId(@NonNull final int  id) {
@@ -54,14 +54,14 @@ public class Human {
     }
 
     /**
-     * Gets name
+     * Get name of a person
      * @return name name of a person
      */
     public String getName() {
         return name;
     }
     /**
-     * Sets name
+     * Set name of a person
      * @param name name of a person
      */
     public void setName(@NonNull final String name) {
@@ -70,14 +70,14 @@ public class Human {
 
     /**
      * Gets location
-     * @return location location of a person
+     * @return location of a person
      */
     public String getLocation() {
         return location;
     }
 
     /**
-     * Sets location
+     * Sets location of a person
      * @param location location of a person
      */
     public void setLocation(@NonNull final String location) {
@@ -86,13 +86,13 @@ public class Human {
 
     /**
      * Gets email
-     * @return email email of a person
+     * @return email of a person
      */
     public String getEmail() {
         return email;
     }
     /**
-     * Sets email
+     * Sets email of a person
      * @param email email of a person
      */
     public void setEmail(@NonNull final String email) {

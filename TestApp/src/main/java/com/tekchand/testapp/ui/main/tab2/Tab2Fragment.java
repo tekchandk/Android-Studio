@@ -14,15 +14,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.tekchand.testapp.R;
 import com.tekchand.testapp.ui.main.tab1.Human;
-import com.tekchand.testapp.utility.FakeData;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.tekchand.testapp.utility.FakeData.getFakeData;
+
 public class Tab2Fragment extends Fragment {
     private RecyclerView recyclerView;
     private static List<Human> humans = new ArrayList<>();
-    private OnFragmentInteractionListener mListener;
+    private CallbackInterface mListener;
     private RecyclerView.Adapter adapter;
 
     /**
@@ -37,8 +38,7 @@ public class Tab2Fragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        FakeData fakeData = new FakeData();
-        humans = fakeData.getFakeData();
+        humans = getFakeData();
     }
 
     @Override
@@ -50,11 +50,11 @@ public class Tab2Fragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
+        if (context instanceof CallbackInterface) {
+            mListener = (CallbackInterface) context;
         } else {
             throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
+                    + " must implement CallbackInterface");
         }
     }
 
@@ -73,7 +73,6 @@ public class Tab2Fragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mListener.onFragmentTab2Interaction();
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new HumanRecyclerAdapter(humans);
@@ -98,7 +97,6 @@ public class Tab2Fragment extends Fragment {
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
      */
-    public interface OnFragmentInteractionListener {
-        void onFragmentTab2Interaction();
+    public interface CallbackInterface {
     }
 }
