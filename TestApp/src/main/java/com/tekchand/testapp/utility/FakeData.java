@@ -6,9 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FakeData {
-    private static List<Human> humans;
     public static List<Human> getFakeData(){
-        humans = new ArrayList<>();
+        List<Human> humans = new ArrayList<>();
         Human human1 = new Human("Tek", "Sikar","tekchand@iitk.ac.in");
         Human human2 = new Human ("Ayush", "Kanpur", "ayushg@iitk.ac.in");
         Human human3 = new Human("Atul", "BHU", "atul@iitbhu.ac.in");

@@ -12,6 +12,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.textfield.TextInputLayout;
 import com.tekchand.testapp.R;
 
+import org.jetbrains.annotations.NotNull;
+
 import static com.tekchand.testapp.constant.Constants.EMAIL;
 import static com.tekchand.testapp.constant.Constants.MyPREFERENCES;
 import static com.tekchand.testapp.constant.Constants.NAME;
@@ -81,10 +83,14 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
      * @param view
      * @return the string which is typed in the edit text.
      */
+
+    @NotNull
     private String getData(View view) {
         if (view instanceof TextInputLayout) {
             TextInputLayout v = (TextInputLayout) view;
-            return v.getEditText().getText().toString();
+            if(v.getEditText() != null) {
+                return v.getEditText().getText().toString();
+            }
         }
         return "";
     }

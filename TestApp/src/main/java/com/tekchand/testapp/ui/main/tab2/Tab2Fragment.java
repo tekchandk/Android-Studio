@@ -22,7 +22,7 @@ import static com.tekchand.testapp.utility.FakeData.getFakeData;
 
 public class Tab2Fragment extends Fragment {
     private RecyclerView recyclerView;
-    private static List<Human> humans = new ArrayList<>();
+    private List<Human> humans = new ArrayList<>();
     private CallbackInterface mListener;
     private RecyclerView.Adapter adapter;
 
@@ -77,7 +77,7 @@ public class Tab2Fragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new HumanRecyclerAdapter(humans);
         recyclerView.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
+
     }
 
     /**
@@ -86,6 +86,7 @@ public class Tab2Fragment extends Fragment {
      */
     public void updateList(Human human) {
         humans.add(human);
+        adapter.notifyDataSetChanged();
     }
     /**
      * This interface must be implemented by activities that contain this
