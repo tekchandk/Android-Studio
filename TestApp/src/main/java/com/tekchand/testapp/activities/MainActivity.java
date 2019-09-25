@@ -1,6 +1,5 @@
 package com.tekchand.testapp.activities;
 
-import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,17 +16,18 @@ import com.tekchand.testapp.ui.main.tab4.SessionFrag;
 
 /**
  * @author Tek Chand
- * This activity show the data in four tab layout using.
+ * This activity show the data in four tab layout.
  */
-public class MainActivity extends AppCompatActivity implements Tab2Fragment.OnFragmentInteractionListener, PlaceholderFragment.Frag1, vmfrag.OnVideoFragmentListener, SessionFrag.OnFragmentInteractionListener {
+public class MainActivity extends AppCompatActivity implements Tab2Fragment.CallbackInterface, PlaceholderFragment.CallbackInterface, vmfrag.CallbackInterface, SessionFrag.CallbackInterface {
 
-    private Tab2Fragment tab2Fragment = new Tab2Fragment();
+    private SectionsPagerAdapter sectionsPagerAdapter;
+    private Tab2Fragment tab2Fragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager());
+        sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager());
         ViewPager viewPager = findViewById(R.id.view_pager);
         viewPager.setAdapter(sectionsPagerAdapter);
         TabLayout tabs = findViewById(R.id.tabs);
@@ -35,22 +35,8 @@ public class MainActivity extends AppCompatActivity implements Tab2Fragment.OnFr
     }
 
     @Override
-    public void onFragmentTab2Interaction() {
-
-    }
-
-    @Override
     public void onSubmit(Human human) {
-      tab2Fragment.updateList(human);
-    }
-
-    @Override
-    public void onVideoFragmentInteraction() {
-
-    }
-
-    @Override
-    public void onFragmentInteraction(Uri uri) {
-
+        tab2Fragment = (Tab2Fragment) sectionsPagerAdapter.getItem(1);
+        tab2Fragment.updateList(human);
     }
 }
