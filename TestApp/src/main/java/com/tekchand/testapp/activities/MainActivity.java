@@ -11,14 +11,14 @@ import com.tekchand.testapp.ui.main.SectionsPagerAdapter;
 import com.tekchand.testapp.ui.main.tab1.Human;
 import com.tekchand.testapp.ui.main.tab1.PlaceholderFragment;
 import com.tekchand.testapp.ui.main.tab2.Tab2Fragment;
-import com.tekchand.testapp.ui.main.tab3.vmfrag;
+import com.tekchand.testapp.ui.main.tab3.VmFragment;
 import com.tekchand.testapp.ui.main.tab4.SessionFrag;
 
 /**
  * @author Tek Chand
  * This activity show the data in four tab layout.
  */
-public class MainActivity extends AppCompatActivity implements Tab2Fragment.CallbackInterface, PlaceholderFragment.CallbackInterface, vmfrag.CallbackInterface, SessionFrag.CallbackInterface {
+public class MainActivity extends AppCompatActivity implements Tab2Fragment.CallbackInterface, PlaceholderFragment.CallbackInterface, VmFragment.CallbackInterface, SessionFrag.CallbackInterface {
 
     private SectionsPagerAdapter sectionsPagerAdapter;
     private Tab2Fragment tab2Fragment;
