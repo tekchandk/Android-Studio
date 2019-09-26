@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/cardview_dark_background"
-    tools:context=".ui.main.tab3.vmfrag">
+    tools:context=".ui.main.tab3.VmFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycleApi"

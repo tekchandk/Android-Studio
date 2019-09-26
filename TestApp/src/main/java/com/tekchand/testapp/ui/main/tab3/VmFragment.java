@@ -14,6 +14,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.gson.Gson;
 import com.tekchand.testapp.R;
+import com.tekchand.testapp.network.IErrorCallback;
+import com.tekchand.testapp.network.INetworkManager;
+import com.tekchand.testapp.network.ISuccessCallback;
+import com.tekchand.testapp.network.impl.NetworkManager;
 import com.tekchand.testapp.ui.main.models.ItemsItem;
 import com.tekchand.testapp.ui.main.models.Responses;
 
@@ -36,68 +40,47 @@ import static com.tekchand.testapp.constant.Constants.API_URL;
  * @author Tek Chand
  * This fragment show a list of youtube video's API data
  */
-public class vmfrag extends Fragment {
+public class VmFragment extends Fragment {
 
-    private Gson gson = new Gson();
     private RecyclerView recyclerView;
     private CallbackInterface mListener;
     private List<Video> videos = new ArrayList<>();
     private RecyclerView.Adapter videoAdapter;
 
+    @Nullable
+    private INetworkManager mNetworkManager;
 
-    public static vmfrag newInstance() {
-        return new vmfrag();
+    public VmFragment() {
+
+    }
+
+    public static VmFragment newInstance() {
+        VmFragment vmFragment = new VmFragment();
+        vmFragment.mNetworkManager = new NetworkManager(new Gson());
+        return vmFragment;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         recyclerView = view.findViewById(R.id.recycleApi);
-        OkHttpClient client = new OkHttpClient();
-        Request request = new Request.Builder()
-                .url(API_URL)
-                .build();
-        client.newCall(request).enqueue(new Callback(){
-            @Override
-            public void onFailure(Call call, IOException e) {
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                       // textView.setText("Failure !");
-                    }
-                });
-            }
+        requestVideos();
+    }
 
-            @Override
-            public void onResponse(Call call, final Response response) {
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            String str = response.body().string();
-                            JSONObject jsonObject = null;
-                            try {
-                                jsonObject = new JSONObject(str);
-                                Responses responses= gson.fromJson(jsonObject.toString(), Responses.class);
-                                List<ItemsItem> items = responses.getItems();
-                                for(ItemsItem item : items){
-                                    String title = item.getSnippet().getTitle();
-                                    String publish = item.getSnippet().getPublishedAt();
-                                   String desc = item.getSnippet().getDescription();
-                                    String url = item.getSnippet().getThumbnails().getHigh().getUrl();
-                                    Video video = new Video(publish, title, desc, url);
-                                    videos.add(video);
-                                }
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                        } catch (IOException ioe) {
-                           ioe.printStackTrace();
-                        }
-                    }
-                });
-            }
-        });
+    private void requestVideos() {
+        if (mNetworkManager != null) {
+            mNetworkManager.requestVideo(API_URL, new ISuccessCallback<Video>() {
+                @Override
+                public void onSuccess(@Nullable Video succesObject) {
+
+                }
+            }, new IErrorCallback<Integer>() {
+                @Override
+                public void onError(@NonNull Integer errorCode) {
+
+                }
+            });
+        }
     }
 
 
