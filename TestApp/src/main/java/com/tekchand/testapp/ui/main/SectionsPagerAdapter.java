@@ -13,6 +13,10 @@ import com.tekchand.testapp.ui.main.tab1.PlaceholderFragment;
 import com.tekchand.testapp.ui.main.tab2.Tab2Fragment;
 import com.tekchand.testapp.ui.main.tab3.VmFragment;
 import com.tekchand.testapp.ui.main.tab4.SessionFrag;
+
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * A [FragmentPagerAdapter] that returns a fragment corresponding to
  * one of the sections/tabs/pages.
@@ -22,27 +26,19 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
     @StringRes
     private static final int[] TAB_TITLES = new int[]{R.string.tab_text_1, R.string.tab_text_2, R.string.tab_text_3, R.string.tab_text_4};
     private final Context mContext;
+    private List<Fragment> fragments = new ArrayList<>();
     public SectionsPagerAdapter(Context context, FragmentManager fm) {
         super(fm);
         mContext = context;
+        fragments.add(PlaceholderFragment.newInstance());
+        fragments.add(Tab2Fragment.newInstance());
+        fragments.add(VmFragment.newInstance());
+        fragments.add(SessionFrag.newInstance());
     }
 
     @Override
     public Fragment getItem(int position) {
-        // getItem is called to instantiate the fragment for the given page.
-        // Return a PlaceholderFragment (defined as a static inner class below).
-        switch (position) {
-            case 0:
-                return PlaceholderFragment.newInstance();
-            case 1:
-                return Tab2Fragment.newInstance();
-            case 2:
-                return VmFragment.newInstance();
-            case 3:
-                return SessionFrag.newInstance();
-            default:
-                return null;
-        }
+        return fragments.get(position);
     }
 
     @Nullable
