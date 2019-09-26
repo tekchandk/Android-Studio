@@ -28,14 +28,14 @@ public class VideoRecyclerAdapter extends RecyclerView.Adapter<VideoRecyclerAdap
     @Override
     public SimpleViewHolder onCreateViewHolder(@NonNull ViewGroup parent, final int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.video_items,parent, false);
-        SimpleViewHolder viewHolder = new SimpleViewHolder(view);
+        SimpleViewHolder viewHolder = new SimpleViewHolder(view, context);
         return viewHolder;
     }
 
     @Override
     public void onBindViewHolder(@NonNull SimpleViewHolder holder, final int position) {
-        Glide.with(context).load(videos.get(position).getUrl()).into(holder.image);
-        holder.dataBind(videos, position);
+        Video video = videos.get(position);
+        holder.dataBind(video);
     }
 
     @Override
@@ -44,22 +44,26 @@ public class VideoRecyclerAdapter extends RecyclerView.Adapter<VideoRecyclerAdap
     }
 
     public static class SimpleViewHolder extends RecyclerView.ViewHolder{
-        private ImageView image;
-        private TextView publish;
-        private TextView title;
-        private TextView desc;
-        private SimpleViewHolder(View itemView) {
+        private final ImageView mImage;
+        private final TextView mPublish;
+        private final TextView mTitle;
+        private final TextView mDesc;
+        private final Context mContext;
+        private SimpleViewHolder(@NonNull final View itemView,
+                                 @NonNull final Context context) {
             super(itemView);
-            image = itemView.findViewById(R.id.imageView);
-            publish = itemView.findViewById(R.id.publish);
-            title = itemView.findViewById(R.id.title);
-            desc = itemView.findViewById(R.id.desc);
+            this.mContext = context;
+            mImage = itemView.findViewById(R.id.imageView);
+            mPublish = itemView.findViewById(R.id.publish);
+            mTitle = itemView.findViewById(R.id.title);
+            mDesc = itemView.findViewById(R.id.desc);
         }
 
-        private void dataBind(List<Video> videos, int position) {
-            publish.setText(videos.get(position).getPublished());
-            title.setText(videos.get(position).getTitle());
-            desc.setText(videos.get(position).getDescription());
+        private void dataBind(@NonNull final Video video) {
+            Glide.with(mContext).load(video.getUrl()).into(mImage);
+            mPublish.setText(video.getPublished());
+            mTitle.setText(video.getTitle());
+            mDesc.setText(video.getDescription());
         }
 
     }
