@@ -35,9 +35,7 @@ public class VideoRecyclerAdapter extends RecyclerView.Adapter<VideoRecyclerAdap
     @Override
     public void onBindViewHolder(@NonNull SimpleViewHolder holder, final int position) {
         Glide.with(context).load(videos.get(position).getUrl()).into(holder.image);
-        holder.publish.setText(videos.get(position).getPublished());
-        holder.title.setText(videos.get(position).getTitle());
-        holder.desc.setText(videos.get(position).getDescription());
+        holder.dataBind(videos, position);
     }
 
     @Override
@@ -57,5 +55,12 @@ public class VideoRecyclerAdapter extends RecyclerView.Adapter<VideoRecyclerAdap
             title = itemView.findViewById(R.id.title);
             desc = itemView.findViewById(R.id.desc);
         }
+
+        private void dataBind(List<Video> videos, int position) {
+            publish.setText(videos.get(position).getPublished());
+            title.setText(videos.get(position).getTitle());
+            desc.setText(videos.get(position).getDescription());
+        }
+
     }
 }

@@ -77,7 +77,6 @@ public class Tab2Fragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new HumanRecyclerAdapter(humans);
         recyclerView.setAdapter(adapter);
-
     }
 
     /**

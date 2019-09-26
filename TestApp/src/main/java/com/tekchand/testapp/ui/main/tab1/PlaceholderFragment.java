@@ -21,7 +21,7 @@ import static com.tekchand.testapp.constant.Constants.SET_ERROR;
  * @author Tek Chand
  * A placeholder fragment is getting the information
  */
-public class PlaceholderFragment extends Fragment {
+public class PlaceholderFragment extends Fragment implements View.OnClickListener {
     private Context mContext;
     private CallbackInterface mListener;
     private EditText nameText;
@@ -63,19 +63,7 @@ public class PlaceholderFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        subBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Human human = new Human(getData(nameText), getData(locText), getData(addrText));
-                if(!validName() || ! validLocation() || !validAddr()) {
-                    return;
-                }
-                mListener.onSubmit(human);
-                nameText.setText("");
-                locText.setText("");
-                addrText.setText("");
-            }
-        });
+        subBtn.setOnClickListener(this);
     }
 
     /**
@@ -152,5 +140,18 @@ public class PlaceholderFragment extends Fragment {
             throw new RuntimeException(context.toString()
                     + " must implement CallbackInterface");
         }
+    }
+
+    @Override
+    public void onClick(View view) {
+        Human human = new Human(getData(nameText), getData(locText), getData(addrText));
+        if(!validName() || ! validLocation() || !validAddr()) {
+            return;
         }
+        mListener.onSubmit(human);
+        nameText.setText("");
+        locText.setText("");
+        addrText.setText("");
+    }
+
 }

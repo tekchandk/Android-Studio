@@ -9,6 +9,7 @@ import java.util.Objects;
  * Human class represents the information of a human such as name, location, email.
  */
 public class Human {
+
     private static int count = 0;
     private int id;
     private String name;
