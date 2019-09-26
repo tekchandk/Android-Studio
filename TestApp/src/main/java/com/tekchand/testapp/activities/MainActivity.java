@@ -3,6 +3,7 @@ package com.tekchand.testapp.activities;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
@@ -21,7 +22,6 @@ import com.tekchand.testapp.ui.main.tab4.SessionFrag;
 public class MainActivity extends AppCompatActivity implements Tab2Fragment.CallbackInterface, PlaceholderFragment.CallbackInterface, VmFragment.CallbackInterface, SessionFrag.CallbackInterface {
 
     private SectionsPagerAdapter sectionsPagerAdapter;
-    private Tab2Fragment tab2Fragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +36,10 @@ public class MainActivity extends AppCompatActivity implements Tab2Fragment.Call
 
     @Override
     public void onSubmit(Human human) {
-        tab2Fragment = (Tab2Fragment) sectionsPagerAdapter.getItem(1);
-        tab2Fragment.updateList(human);
+        Fragment item = sectionsPagerAdapter.getItem(1);
+        if(item instanceof Tab2Fragment) {
+            Tab2Fragment tab2Fragment = (Tab2Fragment) item;
+            tab2Fragment.updateList(human);
+        }
     }
 }

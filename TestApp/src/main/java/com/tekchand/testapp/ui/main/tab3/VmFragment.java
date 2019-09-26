@@ -18,21 +18,9 @@ import com.tekchand.testapp.network.IErrorCallback;
 import com.tekchand.testapp.network.INetworkManager;
 import com.tekchand.testapp.network.ISuccessCallback;
 import com.tekchand.testapp.network.impl.NetworkManager;
-import com.tekchand.testapp.ui.main.models.ItemsItem;
-import com.tekchand.testapp.ui.main.models.Responses;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
 
 import static com.tekchand.testapp.constant.Constants.API_URL;
 
@@ -71,13 +59,12 @@ public class VmFragment extends Fragment {
         if (mNetworkManager != null) {
             mNetworkManager.requestVideo(API_URL, new ISuccessCallback<Video>() {
                 @Override
-                public void onSuccess(@Nullable Video succesObject) {
-
+                public void onSuccess(@NonNull Video succesObject) {
+                    videos.add(succesObject);
                 }
             }, new IErrorCallback<Integer>() {
                 @Override
                 public void onError(@NonNull Integer errorCode) {
-
                 }
             });
         }

@@ -29,9 +29,7 @@ public class HumanRecyclerAdapter extends RecyclerView.Adapter<HumanRecyclerAdap
 
     @Override
     public void onBindViewHolder(@NonNull final SimpleViewHolder holder, @NonNull final int position) {
-        holder.name.setText(humans.get(position).getName());
-        holder.location.setText(humans.get(position).getLocation());
-        holder.email.setText(humans.get(position).getEmail());
+        holder.dataBind(humans,position);
     }
 
     @Override
@@ -48,6 +46,11 @@ public class HumanRecyclerAdapter extends RecyclerView.Adapter<HumanRecyclerAdap
             name = itemView.findViewById(R.id.nameTextView);
             location = itemView.findViewById(R.id.locTextView);
             email = itemView.findViewById(R.id.emailTextView);
+        }
+        private void dataBind(List<Human> humans,int position) {
+            name.setText(humans.get(position).getName());
+            location.setText(humans.get(position).getLocation());
+            email.setText(humans.get(position).getEmail());
         }
     }
 }

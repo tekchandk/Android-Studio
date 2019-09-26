@@ -30,7 +30,7 @@ import static com.tekchand.testapp.constant.Constants.NAME;
  * Use the {@link SessionFrag#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class SessionFrag extends Fragment {
+public class SessionFrag extends Fragment implements View.OnClickListener {
     private TextView userName;
     private TextView email;
     private Button logOutBtn;
@@ -72,12 +72,7 @@ public class SessionFrag extends Fragment {
         userName.setText(getString(R.string.user_name) + sharedPreferences.getString(NAME, null));
         email.setText(getString(R.string.email_id) + sharedPreferences.getString(EMAIL,null));
         // When logout button pressed. It will go on main screen.
-        logOutBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                logoutUser();
-            }
-        });
+        logOutBtn.setOnClickListener(this);
     }
 
     /**
@@ -117,6 +112,11 @@ public class SessionFrag extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    @Override
+    public void onClick(View view) {
+        logoutUser();
     }
 
     /**

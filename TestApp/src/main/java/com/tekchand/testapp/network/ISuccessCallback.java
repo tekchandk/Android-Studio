@@ -1,8 +1,8 @@
 package com.tekchand.testapp.network;
 
-import androidx.annotation.Nullable;
+import androidx.annotation.NonNull;
 
 public interface ISuccessCallback<T> {
 
-    void onSuccess(@Nullable T succesObject);
+    void onSuccess(@NonNull T succesObject);
 }
