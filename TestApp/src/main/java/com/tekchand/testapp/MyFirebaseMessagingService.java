@@ -11,7 +11,8 @@ import androidx.core.app.NotificationManagerCompat;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
-import com.tekchand.testapp.ui.main.LogIn;
+import com.tekchand.testapp.activities.LogInActivity;
+import com.tekchand.testapp.activities.MainActivity;
 
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
@@ -27,7 +28,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         }
 
         public void showNotification(String title, String message) {
-            Intent intent = new Intent(this, LogIn.class);
+            Intent intent = new Intent(this, LogInActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT);
             Intent intent2 = new Intent(this, MainActivity.class);
             intent2.addFlags(Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT);
