@@ -76,7 +76,9 @@ public class Tab2Fragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         recyclerView.setHasFixedSize(true);
+
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
         adapter = new HumanRecyclerAdapter(humans, new HumanRecyclerAdapter.OnClickListener() {
             @Override
             public void onClick(Human human) {
@@ -89,11 +91,9 @@ public class Tab2Fragment extends Fragment {
             builder.show();
             }
         });
+
         recyclerView.setAdapter(adapter);
     }
-
-
-
 
     /**
      * add the human to the list of humans
@@ -103,8 +103,6 @@ public class Tab2Fragment extends Fragment {
         humans.add(human);
         adapter.notifyDataSetChanged();
     }
-
-
 
     /**
      * This interface must be implemented by activities that contain this
@@ -118,4 +116,5 @@ public class Tab2Fragment extends Fragment {
      */
     public interface CallbackInterface {
     }
+
 }

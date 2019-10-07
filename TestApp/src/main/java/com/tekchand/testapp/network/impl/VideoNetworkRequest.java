@@ -74,24 +74,29 @@ public class VideoNetworkRequest implements INetworkRequest<Video, Integer> {
                                    @NonNull final Response response) {
                 try {
                     ResponseBody body = response.body();
-                    if (body != null) {
+                    if (body != null && response.code() == 200) {
                         String str = body.string();
                         JSONObject jsonObject = null;
                         try {
                             jsonObject = new JSONObject(str);
                             Responses responses = mGson.fromJson(jsonObject.toString(), Responses.class);
                             List<ItemsItem> items = responses.getItems();
+                            String nextPageToken = responses.getNextPageToken();
+                            String prevPageToken = responses.getPrevPageToken();
                             for (ItemsItem item : items) {
                                 String title = item.getSnippet().getTitle();
                                 String publish = item.getSnippet().getPublishedAt();
                                 String desc = item.getSnippet().getDescription();
                                 String url = item.getSnippet().getThumbnails().getHigh().getUrl();
-                                Video video = new Video(publish, title, desc, url);
+                                Video video = new Video(publish, title, desc, url, nextPageToken, prevPageToken);
                                 onSuccess(video);
                             }
+
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
+                    } else {
+                        onError(response.code());
                     }
                 } catch (IOException ioe) {
                     ioe.printStackTrace();

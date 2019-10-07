@@ -14,6 +14,8 @@ public class Video {
     private String title;
     private String description;
     private String url;
+    private String nextPageToken;
+    private String prevPageToken;
 
     /**
      * increase Id by one when new video is added.
@@ -24,12 +26,31 @@ public class Video {
         return count;
     }
 
-    public Video(String published, String title, String description, String url) {
+    public Video(String published, String title, String description, String url, String nextPageToken, String prevPageToken) {
         this.id = autoId();
         this.published = published;
         this.title = title;
         this.description = description;
         this.url = url;
+        this.nextPageToken = nextPageToken;
+        this.prevPageToken = prevPageToken;
+    }
+
+
+    public String getNextPageToken() {
+        return nextPageToken;
+    }
+
+    public void setNextPageToken(String nextPageToken) {
+        this.nextPageToken = nextPageToken;
+    }
+
+    public void setPrevPageToken(String prevPageToken) {
+        this.prevPageToken = prevPageToken;
+    }
+
+    public String getPrevPageToken() {
+        return prevPageToken;
     }
 
     /**
