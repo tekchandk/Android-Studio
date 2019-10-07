@@ -22,6 +22,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    compileOptions {
+        sourceCompatibility = 1.8
+        targetCompatibility = 1.8
+    }
 
 }
 
@@ -56,7 +60,7 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "androidx.appcompat:appcompat:$appcompatLibraryVersion"
     //noinspection GradleCompatible
-    implementation "com.android.support:design:$supportLibraryVersion"
+    implementation 'com.google.android.material:material:1.0.0'
     implementation "com.google.android.material:material:$materialLibraryVersion"
     implementation "androidx.constraintlayout:constraintlayout:$constraintslayoutLibraryVersion"
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycleLibraryVersion"
@@ -67,8 +71,8 @@ dependencies {
     androidTestImplementation "androidx.test.espresso:espresso-core:$espressoLibraryVersion"
     implementation "com.google.android.gms:play-services-maps:$playServiceLibraryVersion"
     implementation "com.squareup.okhttp3:okhttp:$okHttpLibraryVersion"
-    implementation "android.arch.lifecycle:extensions:$lifecycle_version"
-    annotationProcessor "android.arch.lifecycle:compiler:$lifecycle_version"
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0'
+    annotationProcessor 'androidx.lifecycle:lifecycle-compiler:2.0.0'
     implementation "com.google.code.gson:gson:$gsonLibraryVersion"
     implementation "com.github.bumptech.glide:glide:$glideLibraryVersion"
     implementation 'com.google.code.gson:gson:2.8.2'
@@ -76,6 +80,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-messaging:20.0.0'
     implementation "androidx.fragment:fragment:$fragment_version"
     implementation 'androidx.cardview:cardview:1.0.0'
+    implementation 'androidx.annotation:annotation-experimental:1.0.0-alpha01'
 
 
 }

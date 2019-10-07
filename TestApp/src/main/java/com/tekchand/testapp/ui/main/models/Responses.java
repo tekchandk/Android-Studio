@@ -10,6 +10,7 @@ public class Responses{
 	private String regionCode;
 	private String kind;
 	private String nextPageToken;
+	private String prevPageToken;
 	private PageInfo pageInfo;
 	private String etag;
 	@SerializedName("items")
@@ -30,6 +31,14 @@ public class Responses{
 
 	public String getKind(){
 		return kind;
+	}
+
+	public void setPrevPageToken(String prevPageToken) {
+		this.prevPageToken = prevPageToken;
+	}
+
+	public String getPrevPageToken() {
+		return prevPageToken;
 	}
 
 	public void setNextPageToken(@NonNull final String nextPageToken){
@@ -70,8 +79,9 @@ public class Responses{
 			"Response{" + 
 			"regionCode = '" + regionCode + '\'' + 
 			",kind = '" + kind + '\'' + 
-			",nextPageToken = '" + nextPageToken + '\'' + 
-			",pageInfo = '" + pageInfo + '\'' + 
+			",nextPageToken = '" + nextPageToken + '\'' +
+			",prevPageToken = '" + prevPageToken + '\'' +
+			",pageInfo = '" + pageInfo + '\'' +
 			",etag = '" + etag + '\'' + 
 			",items = '" + items + '\'' + 
 			"}";

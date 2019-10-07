@@ -18,18 +18,21 @@ import java.util.List;
 public class VideoRecyclerAdapter extends RecyclerView.Adapter<VideoRecyclerAdapter.SimpleViewHolder>{
     private List<Video> videos;
     private Context context;
+    private String nextPageToken;
+    // flag for footer ProgressBar (i.e. last item of list)
+
 
     public VideoRecyclerAdapter(@NonNull final Context context, @NonNull final List<Video> videos){
         this.videos = videos;
         this.context = context;
+
     }
 
     @NonNull
     @Override
     public SimpleViewHolder onCreateViewHolder(@NonNull ViewGroup parent, final int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.video_items,parent, false);
-        SimpleViewHolder viewHolder = new SimpleViewHolder(view, context);
-        return viewHolder;
+        return new SimpleViewHolder(view, context);
     }
 
     @Override
@@ -41,6 +44,10 @@ public class VideoRecyclerAdapter extends RecyclerView.Adapter<VideoRecyclerAdap
     @Override
     public int getItemCount() {
         return videos.size();
+    }
+
+    public Video getLastItem() {
+        return videos.get(getItemCount()-1);
     }
 
     public static class SimpleViewHolder extends RecyclerView.ViewHolder{
