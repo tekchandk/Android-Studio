@@ -7,32 +7,69 @@
     android:layout_height="match_parent"
     tools:context=".activities.MainActivity">
 
-
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tabs"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:tabTextColor="#fff"
-            android:background="#5a5fac" />
-    <ImageButton
-        android:id="@+id/vert_dots"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="380dp"
-        android:layout_marginTop="10dp"
-        android:src="@drawable/ic_more_vert_black_24dp"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
         android:background="@color/colorPrimary"
+        android:popupTheme="@style/AppTheme.PopupOverlay"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Soil Test"
+            android:layout_gravity="center"
+            android:id="@+id/toolbar_title"
+            android:textColor="@color/White"
+            android:textSize="35sp"
+            android:textStyle="bold"
         />
+    </androidx.appcompat.widget.Toolbar>
+    <!--<androidx.cardview.widget.CardView
+        android:id="@+id/action_bar_card_view"
+
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        app:cardBackgroundColor="@color/colorPrimary"
+        >
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/app_name"
+                android:textColor="@color/White"
+                android:textSize="30dp"
+                android:textAlignment="center"/>
+
+            <ImageButton
+                android:id="@+id/vert_dots"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="370dp"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/ic_more_vert_black_24dp"
+                android:background="@color/colorPrimary"
+                />
+
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>-->
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabs"
+        android:layout_below="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        app:tabTextColor="#fff"
+        android:background="#5a5fac" />
+
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/view_pager"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tabs"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
-
-
+        android:layout_height="match_parent"
+        android:layout_below="@id/tabs"
+       />
 
 </RelativeLayout>

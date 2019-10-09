@@ -1,8 +1,15 @@
 package com.tekchand.testapp.activities;
 
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.widget.ImageButton;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
@@ -24,6 +31,8 @@ public class MainActivity extends AppCompatActivity implements Tab2Fragment.Call
 
     private SectionsPagerAdapter sectionsPagerAdapter;
     private ViewPager viewPager;
+    private ImageButton imageButton;
+    private Toolbar myToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,9 +40,36 @@ public class MainActivity extends AppCompatActivity implements Tab2Fragment.Call
         setContentView(R.layout.activity_main);
         sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager());
         viewPager = findViewById(R.id.view_pager);
+        //imageButton = findViewById(R.id.vert_dots);
         viewPager.setAdapter(sectionsPagerAdapter);
         TabLayout tabs = findViewById(R.id.tabs);
         tabs.setupWithViewPager(viewPager);
+        myToolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(myToolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.bluetooth:
+                Toast.makeText(this, "Bluetooth is selected" , Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.item1:
+                Toast.makeText(this, "Item1 is selected" , Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.item2:
+                Toast.makeText(this, "Item2 is selected" , Toast.LENGTH_SHORT).show();
+                return true;
+        }
+        return false;
     }
 
     @Override
