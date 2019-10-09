@@ -81,7 +81,7 @@ dependencies {
     implementation "androidx.fragment:fragment:$fragment_version"
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation 'androidx.annotation:annotation-experimental:1.0.0-alpha01'
-
+    implementation 'androidx.cardview:cardview:1.0.0'
 
 }
 apply plugin: 'com.google.gms.google-services'
