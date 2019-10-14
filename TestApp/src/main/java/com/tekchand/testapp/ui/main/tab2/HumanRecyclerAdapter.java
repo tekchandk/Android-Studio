@@ -62,15 +62,12 @@ public class HumanRecyclerAdapter extends RecyclerView.Adapter<HumanRecyclerAdap
             name.setText(humans.get(position).getName());
             location.setText(humans.get(position).getLocation());
             email.setText(humans.get(position).getEmail());
-            cardView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    listener.onClick(humans.get(position));
-
-                }
-            });
+            cardView.setOnClickListener(v -> listener.onClick(humans.get(position)));
         }
 
+        private void onClick(View v) {
+
+        }
 
     }
 
