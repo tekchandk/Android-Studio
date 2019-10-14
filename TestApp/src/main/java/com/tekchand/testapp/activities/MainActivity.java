@@ -23,13 +23,14 @@ import com.tekchand.testapp.ui.main.tab3.VmFragment;
 import com.tekchand.testapp.ui.main.tab4.SessionFrag;
 import com.tekchand.testapp.ui.main.tab5.CropFertilizerFragment;
 
+import javax.inject.Inject;
+
 /**
  * @author Tek Chand
  * This activity show the data in four tab layout.
  */
 public class MainActivity extends AppCompatActivity implements Tab2Fragment.CallbackInterface, PlaceholderFragment.CallbackInterface, VmFragment.CallbackInterface, SessionFrag.CallbackInterface, CropFertilizerFragment.CallbackInterface {
-
-    private SectionsPagerAdapter sectionsPagerAdapter;
+    @Inject SectionsPagerAdapter sectionsPagerAdapter;
     private ViewPager viewPager;
     private ImageButton imageButton;
     private Toolbar myToolbar;
@@ -38,6 +39,7 @@ public class MainActivity extends AppCompatActivity implements Tab2Fragment.Call
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager());
         viewPager = findViewById(R.id.view_pager);
         //imageButton = findViewById(R.id.vert_dots);
