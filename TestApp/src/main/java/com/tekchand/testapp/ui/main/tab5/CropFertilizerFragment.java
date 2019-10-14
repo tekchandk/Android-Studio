@@ -18,6 +18,8 @@ import androidx.fragment.app.Fragment;
 
 import com.tekchand.testapp.R;
 
+import dagger.android.support.AndroidSupportInjection;
+
 import static com.tekchand.testapp.constant.Constants.CROP;
 import static com.tekchand.testapp.constant.Constants.FERTILIZER;
 import static com.tekchand.testapp.constant.Constants.PREFERENCECROPFERT;
@@ -123,6 +125,7 @@ public class CropFertilizerFragment extends Fragment implements View.OnClickList
 
     @Override
     public void onAttach(Context context) {
+        AndroidSupportInjection.inject(this);
         super.onAttach(context);
         if (context instanceof CallbackInterface) {
             mListener = (CallbackInterface) context;

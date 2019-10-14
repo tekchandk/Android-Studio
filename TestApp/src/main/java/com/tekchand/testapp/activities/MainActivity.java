@@ -8,6 +8,7 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
@@ -23,13 +24,32 @@ import com.tekchand.testapp.ui.main.tab3.VmFragment;
 import com.tekchand.testapp.ui.main.tab4.SessionFrag;
 import com.tekchand.testapp.ui.main.tab5.CropFertilizerFragment;
 
+import java.util.Map;
+
 import javax.inject.Inject;
+import javax.inject.Provider;
+
+import dagger.android.AndroidInjection;
+import dagger.android.AndroidInjector;
+import dagger.android.DispatchingAndroidInjector;
+import dagger.android.support.HasSupportFragmentInjector;
 
 /**
  * @author Tek Chand
  * This activity show the data in four tab layout.
  */
-public class MainActivity extends AppCompatActivity implements Tab2Fragment.CallbackInterface, PlaceholderFragment.CallbackInterface, VmFragment.CallbackInterface, SessionFrag.CallbackInterface, CropFertilizerFragment.CallbackInterface {
+public class MainActivity extends AppCompatActivity implements
+        Tab2Fragment.CallbackInterface,
+        PlaceholderFragment.CallbackInterface,
+        VmFragment.CallbackInterface,
+        SessionFrag.CallbackInterface,
+        CropFertilizerFragment.CallbackInterface,
+        HasSupportFragmentInjector {
+    @Inject
+    DispatchingAndroidInjector<Fragment> fragmentDispatchingAndroidInjector;
+    @Inject
+    @Nullable
+    Map<Class<? extends Fragment>, Provider<AndroidInjector.Builder<? extends Fragment>>> mInjectorFactories;
     @Inject SectionsPagerAdapter sectionsPagerAdapter;
     private ViewPager viewPager;
     private ImageButton imageButton;
@@ -37,6 +57,7 @@ public class MainActivity extends AppCompatActivity implements Tab2Fragment.Call
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        AndroidInjection.inject(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -93,4 +114,11 @@ public class MainActivity extends AppCompatActivity implements Tab2Fragment.Call
         }
         viewPager.setCurrentItem(3);
     }
+
+    @Override
+    @NonNull
+    public AndroidInjector<Fragment> supportFragmentInjector() {
+        return fragmentDispatchingAndroidInjector;
+    }
+
 }

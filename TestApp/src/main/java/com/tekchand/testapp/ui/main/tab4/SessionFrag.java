@@ -17,6 +17,8 @@ import androidx.fragment.app.Fragment;
 import com.tekchand.testapp.R;
 import com.tekchand.testapp.activities.LogInActivity;
 
+import dagger.android.support.AndroidSupportInjection;
+
 import static com.tekchand.testapp.constant.Constants.CROP;
 import static com.tekchand.testapp.constant.Constants.EMAIL;
 import static com.tekchand.testapp.constant.Constants.FERTILIZER;
@@ -123,6 +125,7 @@ public class SessionFrag extends Fragment implements View.OnClickListener {
 
     @Override
     public void onAttach(Context context) {
+        AndroidSupportInjection.inject(this);
         super.onAttach(context);
         if (context instanceof CallbackInterface) {
             mListener = (CallbackInterface) context;

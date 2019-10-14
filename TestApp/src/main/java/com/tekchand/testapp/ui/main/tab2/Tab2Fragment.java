@@ -19,6 +19,8 @@ import com.tekchand.testapp.ui.main.tab1.Human;
 import java.util.ArrayList;
 import java.util.List;
 
+import dagger.android.support.AndroidSupportInjection;
+
 import static com.tekchand.testapp.utility.FakeData.getFakeData;
 
 public class Tab2Fragment extends Fragment {
@@ -51,6 +53,7 @@ public class Tab2Fragment extends Fragment {
 
     @Override
     public void onAttach(Context context) {
+        AndroidSupportInjection.inject(this);
         super.onAttach(context);
         if (context instanceof CallbackInterface) {
             mListener = (CallbackInterface) context;

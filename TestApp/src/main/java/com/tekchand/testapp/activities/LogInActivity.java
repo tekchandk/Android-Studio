@@ -17,6 +17,8 @@ import com.tekchand.testapp.R;
 
 import org.jetbrains.annotations.NotNull;
 
+import dagger.android.AndroidInjection;
+
 import static com.tekchand.testapp.constant.Constants.EMAIL;
 import static com.tekchand.testapp.constant.Constants.IS_LOGIN;
 import static com.tekchand.testapp.constant.Constants.MyPREFERENCES;
@@ -38,6 +40,7 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        AndroidInjection.inject(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
         sharedPreferences = getApplicationContext().getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);

@@ -25,7 +25,9 @@ android {
         sourceCompatibility = 1.8
         targetCompatibility = 1.8
     }
-
+    dataBinding {
+        enabled = true
+    }
 }
 
 ext {
@@ -57,33 +59,27 @@ ext {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "androidx.appcompat:appcompat:$appcompatLibraryVersion"
-    //noinspection GradleCompatible
-    implementation 'com.google.android.material:material:1.0.0'
-    implementation "com.google.android.material:material:$materialLibraryVersion"
-    implementation "androidx.constraintlayout:constraintlayout:$constraintslayoutLibraryVersion"
-    implementation "androidx.lifecycle:lifecycle-extensions:$lifecycleLibraryVersion"
+    implementation "androidx.appcompat:appcompat:1.1.0"
     implementation "androidx.legacy:legacy-support-v4:$legacyLibraryVersion"
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+
+    implementation 'com.google.android.material:material:1.0.0'
+    implementation 'androidx.cardview:cardview:1.0.0'
+    implementation "androidx.constraintlayout:constraintlayout:$constraintslayoutLibraryVersion"
+
+    implementation "com.google.android.gms:play-services-maps:$playServiceLibraryVersion"
+    implementation "com.squareup.okhttp3:okhttp:$okHttpLibraryVersion"
+
+    implementation 'com.google.code.gson:gson:2.8.5'
+    implementation 'com.github.bumptech.glide:glide:4.9.0'
+    implementation 'com.google.firebase:firebase-messaging:20.0.0'
+
+    implementation 'com.google.dagger:dagger:2.17'
+    implementation 'com.google.dagger:dagger-android-support:2.17'
+    annotationProcessor 'com.google.dagger:dagger-android-processor:2.17'
+    annotationProcessor 'com.google.dagger:dagger-compiler:2.17'
+
     testImplementation "junit:junit:$junitLibraryVersion"
     androidTestImplementation "androidx.test:runner:$testRunnerLibraryVersion"
     androidTestImplementation "androidx.test.espresso:espresso-core:$espressoLibraryVersion"
-    implementation "com.google.android.gms:play-services-maps:$playServiceLibraryVersion"
-    implementation "com.squareup.okhttp3:okhttp:$okHttpLibraryVersion"
-    implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0'
-    annotationProcessor 'androidx.lifecycle:lifecycle-compiler:2.0.0'
-    implementation "com.google.code.gson:gson:$gsonLibraryVersion"
-    implementation "com.github.bumptech.glide:glide:$glideLibraryVersion"
-    implementation 'com.google.code.gson:gson:2.8.2'
-    implementation 'com.github.bumptech.glide:glide:4.9.0'
-    implementation 'com.google.firebase:firebase-messaging:20.0.0'
-    implementation "androidx.fragment:fragment:$fragment_version"
-    implementation 'androidx.cardview:cardview:1.0.0'
-    implementation 'androidx.annotation:annotation-experimental:1.0.0-alpha01'
-    implementation 'androidx.cardview:cardview:1.0.0'
-    implementation 'com.google.dagger:dagger:2.13'
-    implementation 'com.google.dagger:dagger-android-support:2.13'
-    annotationProcessor 'com.google.dagger:dagger-android-processor:2.13'
-    annotationProcessor 'com.google.dagger:dagger-compiler:2.13'
 }
 apply plugin: 'com.google.gms.google-services'

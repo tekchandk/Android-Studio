@@ -18,6 +18,8 @@ import androidx.fragment.app.Fragment;
 import com.tekchand.testapp.R;
 import com.tekchand.testapp.activities.MainActivity;
 
+import dagger.android.support.AndroidSupportInjection;
+
 import static com.tekchand.testapp.constant.Constants.SET_ERROR;
 
 /**
@@ -141,6 +143,7 @@ public class PlaceholderFragment extends Fragment implements View.OnClickListene
 
     @Override
     public void onAttach(Context context) {
+        AndroidSupportInjection.inject(this);
         super.onAttach(context);
         mContext = context;
         if (context instanceof CallbackInterface) {

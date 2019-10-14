@@ -21,6 +21,8 @@ import com.tekchand.testapp.network.impl.NetworkManager;
 
 import java.util.Objects;
 
+import dagger.android.support.AndroidSupportInjection;
+
 import static com.tekchand.testapp.ui.main.tab3.PaginationScrollListener.videos;
 
 /**
@@ -79,6 +81,7 @@ public class VmFragment extends Fragment implements PaginationScrollListener.Pag
 
     @Override
     public void onAttach(Context context) {
+        AndroidSupportInjection.inject(this);
         super.onAttach(context);
         if (context instanceof CallbackInterface) {
             mListener = (CallbackInterface) context;
