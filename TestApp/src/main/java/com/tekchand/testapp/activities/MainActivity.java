@@ -1,5 +1,6 @@
 package com.tekchand.testapp.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -66,6 +67,8 @@ public class MainActivity extends AppCompatActivity implements Tab2Fragment.Call
                 return true;
             case R.id.item1:
                 Toast.makeText(this, "Item1 is selected" , Toast.LENGTH_SHORT).show();
+                Intent i = new Intent(MainActivity.this, HomeActivity.class);
+                startActivity(i);
                 return true;
             case R.id.item2:
                 Toast.makeText(this, "Item2 is selected" , Toast.LENGTH_SHORT).show();
@@ -73,6 +76,7 @@ public class MainActivity extends AppCompatActivity implements Tab2Fragment.Call
         }
         return false;
     }
+
 
     @Override
     public void onSubmit(Human human) {
