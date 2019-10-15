@@ -69,6 +69,7 @@ public class MainActivity extends AppCompatActivity implements Tab2Fragment.Call
                 Toast.makeText(this, "Item1 is selected" , Toast.LENGTH_SHORT).show();
                 Intent i = new Intent(MainActivity.this, HomeActivity.class);
                 startActivity(i);
+                sectionsPagerAdapter.getItem(viewPager.getCurrentItem());
                 return true;
             case R.id.item2:
                 Toast.makeText(this, "Item2 is selected" , Toast.LENGTH_SHORT).show();
