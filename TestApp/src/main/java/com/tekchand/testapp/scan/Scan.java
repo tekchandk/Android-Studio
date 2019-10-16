@@ -1,27 +1,24 @@
-package com.tekchand.testapp.readings;
+package com.tekchand.testapp.scan;
 
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.tekchand.testapp.R;
 
-import static com.tekchand.testapp.constant.Constants.IONS;
 
+public class Scan extends Fragment {
 
-public class IonsList extends Fragment {
-    private RecyclerView recyclerView;
     private CallbackInterface mListener;
+    private Button startScanButton;
+    private View view;
 
     /**
      * get the new Instance of Tab2Fragment
@@ -32,7 +29,8 @@ public class IonsList extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.recyclerview_ions_list, container, false);
+        view = inflater.inflate(R.layout.scan, container, false);
+        return view;
     }
 
     @Override
@@ -55,34 +53,24 @@ public class IonsList extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        recyclerView = view.findViewById(R.id.ion_recyclerview);
+        startScanButton = view.findViewById(R.id.start_scan);
+
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
-        Toolbar toolbar = getActivity().findViewById(R.id.toolbar_item1);
-
-        toolbar.setTitle("New Title");
-        recyclerView.setHasFixedSize(true);
-
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-
-        IonsRecyclerAdapter adapter = new IonsRecyclerAdapter(IONS, new IonsRecyclerAdapter.OnClickListener() {
+        LayoutInflater inflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        startScanButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(String ion) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                builder.setTitle("Alert");
-                builder.setMessage("You haven't calibrated the instrument for " + ion + ". Please go to Scan page to scan the soil sampple.");
-                // builder.setIcon(R.drawable.ic_close_black_24dp);
-                builder.setNegativeButton("Cancel", null);
-                builder.create();
-                builder.show();
+            public void onClick(View v) {
+                startScanButton.setVisibility(View.GONE);
+                inflater.inflate(R.layout.scaning, (ViewGroup) view);
             }
         });
 
-        recyclerView.setAdapter(adapter);
+
+
     }
 
 

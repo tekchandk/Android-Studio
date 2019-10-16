@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/White"
+    android:layout_marginRight="15dp"
+    android:layout_marginLeft="15dp"
+    tools:context=".scan.Scan">
+
+    <!-- TODO: Update blank fragment layout -->
+    <TextView
+        android:id="@+id/scan_textview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/Black"
+        android:textSize="40sp"
+        android:textStyle="bold"
+        android:text="Scan" />
+
+    <TextView
+        android:id="@+id/scan_desc_textview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/Black"
+        android:textSize="20sp"
+        android:layout_below="@+id/scan_textview"
+        android:text="Scaning..." />
+
+    <TextView
+        android:id="@+id/scan_voltage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/Black"
+        android:textSize="40sp"
+        android:layout_below="@+id/scan_desc_textview"
+        android:layout_marginTop="50dp"
+        android:textStyle="bold"
+        android:textAlignment="center"
+        android:text="Voltage: mV" />
+
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="2dp"
+        android:background="@color/Black"
+        android:layout_below="@+id/scan_voltage"
+        android:layout_marginTop="5dp"/>
+
+    <TextView
+        android:id="@+id/scan_mean_voltage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/Black"
+        android:textSize="30sp"
+        android:layout_below="@+id/scan_voltage"
+        android:layout_marginTop="20dp"
+        android:textAlignment="center"
+        android:text="Voltage: mV" />
+
+    <TextView
+        android:id="@+id/scan_std_voltage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/Black"
+        android:textSize="30sp"
+        android:layout_below="@+id/scan_mean_voltage"
+        android:layout_marginTop="10dp"
+        android:textAlignment="center"
+        android:text="Standard Deviation:" />
+
+
+    <!--<Button
+        android:id="@+id/start_scan"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="START SCAN"
+        android:layout_below="@+id/scan_desc_textview"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:textSize="20sp"
+        android:textColor="@color/White"
+        android:background="@color/MediumSlateBlue"
+        />-->
+
+</RelativeLayout>

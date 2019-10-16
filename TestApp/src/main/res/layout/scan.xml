@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/White"
+    tools:context=".scan.Scan">
+
+    <!-- TODO: Update blank fragment layout -->
+    <TextView
+        android:id="@+id/scan_textview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/Black"
+        android:textSize="40sp"
+        android:textStyle="bold"
+        android:layout_marginLeft="15dp"
+        android:text="Scan" />
+
+    <TextView
+        android:id="@+id/scan_desc_textview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/Black"
+        android:textSize="20sp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_below="@+id/scan_textview"
+        android:text="Put the soil sample in the cuette and press the Start Scan button." />
+    <Button
+        android:id="@+id/start_scan"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="START SCAN"
+        android:layout_below="@+id/scan_desc_textview"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:textSize="20sp"
+        android:textColor="@color/White"
+        android:background="@color/MediumSlateBlue"
+        />
+
+</RelativeLayout>

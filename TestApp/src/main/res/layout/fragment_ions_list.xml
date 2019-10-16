@@ -6,10 +6,10 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/ion_cardview"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         app:cardCornerRadius="10dp"
         app:cardElevation="20dp"
         app:cardBackgroundColor="@color/SlateBlue">
@@ -17,8 +17,9 @@
         <TextView
             android:id="@+id/ion_name"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:textSize="18sp"
+            android:text="jhjkhkjjhkjhkhjhk"
             android:textStyle="bold"
             android:layout_gravity="center_vertical"
             android:textColor="@color/White"
@@ -28,7 +29,7 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="7dp"
+            android:layout_gravity="center_vertical"
             android:layout_marginLeft="360dp"
             android:src="@drawable/ic_keyboard_arrow_right_black_24dp" />
 

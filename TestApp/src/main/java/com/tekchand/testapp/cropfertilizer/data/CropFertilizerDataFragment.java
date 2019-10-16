@@ -1,38 +1,36 @@
-package com.tekchand.testapp.readings;
+package com.tekchand.testapp.cropfertilizer.data;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.tekchand.testapp.R;
 
-import static com.tekchand.testapp.constant.Constants.IONS;
+import java.util.ArrayList;
+import java.util.List;
 
 
-public class IonsList extends Fragment {
-    private RecyclerView recyclerView;
+public class CropFertilizerDataFragment extends Fragment implements CardRecyclerAdapter.OnClickListener {
+
+    private RecyclerView recyclerViewCards;
     private CallbackInterface mListener;
 
-    /**
-     * get the new Instance of Tab2Fragment
-     * @return fragment a new instance of Tab2Fragment
-     */
 
+   // lists.add(new ListItem());
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.recyclerview_ions_list, container, false);
+        return inflater.inflate(R.layout.fragment_crop_fertilizer_data, container, false);
     }
 
     @Override
@@ -55,36 +53,41 @@ public class IonsList extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        recyclerView = view.findViewById(R.id.ion_recyclerview);
+        recyclerViewCards = view.findViewById(R.id.recyclerview_list);
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        Toolbar toolbar = getActivity().findViewById(R.id.toolbar_item1);
+        recyclerViewCards.setHasFixedSize(true);
 
-        toolbar.setTitle("New Title");
-        recyclerView.setHasFixedSize(true);
+        recyclerViewCards.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        CardsRecyclerAdapter adapter = new CardsRecyclerAdapter(getItems(), getContext(), this);
 
-        IonsRecyclerAdapter adapter = new IonsRecyclerAdapter(IONS, new IonsRecyclerAdapter.OnClickListener() {
-            @Override
-            public void onClick(String ion) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                builder.setTitle("Alert");
-                builder.setMessage("You haven't calibrated the instrument for " + ion + ". Please go to Scan page to scan the soil sampple.");
-                // builder.setIcon(R.drawable.ic_close_black_24dp);
-                builder.setNegativeButton("Cancel", null);
-                builder.create();
-                builder.show();
-            }
-        });
-
-        recyclerView.setAdapter(adapter);
+        recyclerViewCards.setAdapter(adapter);
     }
 
+    @Override
+    public void onClick(ItemCard card) {
+        Log.d(card.getTitle(), String.valueOf(card.getimageRes()));
+    }
+
+    private List<ListItem> getItems(){
+        List<ListItem> lists = new ArrayList<>();
+        List<ItemCard> cardItems = new ArrayList<>();
+        cardItems.add(new ItemCard(R.drawable.wheat, "Wheat"));
+        cardItems.add(new ItemCard(R.drawable.wheat, "Rice"));
+        cardItems.add(new ItemCard(R.drawable.wheat, "Maize"));
+        cardItems.add(new ItemCard(R.drawable.wheat, "Mustard"));
+        cardItems.add(new ItemCard(R.drawable.wheat, "Sugarcane"));
+        cardItems.add(new ItemCard(R.drawable.wheat, "Cotton"));
+        cardItems.add(new ItemCard(R.drawable.wheat, "Potato"));
+        lists.add(new ListItem("Crops", cardItems));
+        lists.add(new ListItem("Fertilizers", cardItems));
+        return lists;
+    }
 
     /**
      * This interface must be implemented by activities that contain this
@@ -97,6 +100,8 @@ public class IonsList extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface CallbackInterface {
+
     }
+
 
 }

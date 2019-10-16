@@ -84,7 +84,7 @@ public class PaginationScrollListener extends RecyclerView.OnScrollListener{
     }
 
     /**
-     * load more items in the list
+     * load more card_item in the list
      * @param nextToken is a token for the next page loading.
      */
     private void loadMoreItem(String nextToken) {
@@ -95,7 +95,7 @@ public class PaginationScrollListener extends RecyclerView.OnScrollListener{
     }
 
     /**
-     * get the total pages of items (ten items in one page)
+     * get the total pages of card_item (ten card_item in one page)
      * @return total no. of pages
      */
     private int getTotalPages() {
