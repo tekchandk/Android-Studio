@@ -7,7 +7,6 @@ import android.widget.Button;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -59,10 +58,10 @@ public class HomeActivity extends AppCompatActivity implements IonsList.Callback
                 builder.setNegativeButton("Cancel", null);
                 builder.create();
                 builder.show();
-                Fragment fragment= new IonsList();
+                IonsList fragment= new IonsList();
                 FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                 transaction.replace(R.id.home_container, fragment); // fragment container id in first parameter is the  container(Main layout id) of Activity
-                transaction.addToBackStack(null);  // this will manage backstack
+               // transaction.addToBackStack(null);  // this will manage backstack
                 transaction.commit();
             }
         });
