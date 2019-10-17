@@ -37,6 +37,34 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/card_search"/>
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="320dp"
+        android:layout_marginTop="650dp"
+        android:elevation="10dp"
+        android:src="@drawable/ic_add_black_24dp" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_edit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="320dp"
+        android:layout_marginTop="585dp"
+        android:elevation="10dp"
+        android:src="@drawable/ic_edit_black_24dp"
+        android:visibility="invisible"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_download"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="320dp"
+        android:layout_marginTop="520dp"
+        android:elevation="10dp"
+        android:src="@drawable/ic_file_download_black_24dp"
+        android:visibility="invisible"/>
 
 
 </RelativeLayout>

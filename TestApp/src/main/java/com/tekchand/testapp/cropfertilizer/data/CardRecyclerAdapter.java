@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.tekchand.testapp.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CardRecyclerAdapter extends RecyclerView.Adapter<CardRecyclerAdapter.SimpleViewHolder>  {
@@ -65,6 +66,13 @@ public class CardRecyclerAdapter extends RecyclerView.Adapter<CardRecyclerAdapte
             });
         }
 
+
+    }
+
+    public void setSearchOperation(List<ItemCard> cards) {
+        items = new ArrayList<>();
+        items.addAll(cards);
+        notifyDataSetChanged();
 
     }
 }
