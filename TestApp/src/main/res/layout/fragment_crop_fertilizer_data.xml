@@ -2,10 +2,11 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="@color/White"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".cropfertilizer.data.CropFertilizerDataFragment">
+    tools:context=".cropfertilizer.data.CropFertilizerDataFragment"
+    android:id="@+id/crop_fertilizer_data_fragment">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/card_search"
@@ -13,7 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_marginRight="10dp"
         android:layout_marginLeft="10dp"
-        app:cardElevation="20dp">
+        app:cardElevation="0dp">
 
         <SearchView
             android:id="@+id/searchView"
@@ -43,7 +44,8 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="320dp"
         android:layout_marginTop="650dp"
-        android:elevation="10dp"
+        app:elevation="0dp"
+        app:pressedTranslationZ="50dp"
         android:src="@drawable/ic_add_black_24dp" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -52,7 +54,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="320dp"
         android:layout_marginTop="585dp"
-        android:elevation="10dp"
+        android:elevation="4dp"
         android:src="@drawable/ic_edit_black_24dp"
         android:visibility="invisible"/>
 
@@ -62,7 +64,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="320dp"
         android:layout_marginTop="520dp"
-        android:elevation="10dp"
+        android:elevation="4dp"
         android:src="@drawable/ic_file_download_black_24dp"
         android:visibility="invisible"/>
 

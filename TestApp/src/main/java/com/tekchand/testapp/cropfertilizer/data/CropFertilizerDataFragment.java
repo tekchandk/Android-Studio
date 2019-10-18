@@ -22,6 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.tekchand.testapp.R;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,6 +37,8 @@ public class CropFertilizerDataFragment extends Fragment implements CardRecycler
     private boolean isOpen = false;
     private AlertDialog alertDialog1;
     private CharSequence[] values = {" Crop "," Fertilizer "};
+    private List <String[]> scoreList;
+
 
 
    // lists.add(new ListItem());
@@ -75,7 +78,13 @@ public class CropFertilizerDataFragment extends Fragment implements CardRecycler
         fabClose = AnimationUtils.loadAnimation(getContext(), R.anim.fab_close);
         fabClockwise = AnimationUtils.loadAnimation(getContext(), R.anim.rotate_clockwise);
         fabAnticlockwise = AnimationUtils.loadAnimation(getContext(), R.anim.rotate_anticlockwise);
+        ReadCSVFile csvFile = null;
+        InputStream inputStream = getResources().openRawResource(R.raw.data);
+        csvFile = new ReadCSVFile(inputStream);
+        scoreList = csvFile.read();
+
     }
+
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -186,7 +195,6 @@ public class CropFertilizerDataFragment extends Fragment implements CardRecycler
                 });
                 alertDialog1 = builder.create();
                 alertDialog1.show();
-
             }
         });
 
@@ -194,31 +202,32 @@ public class CropFertilizerDataFragment extends Fragment implements CardRecycler
 
     @Override
     public void onClick(ItemCard card) {
-        Log.d(card.getTitle(), String.valueOf(card.getimageRes()));
+        mListener.onClickItemCard(card);
+        mListener.setTitle(card.getTitle());
     }
 
     private List<ListItem> getItems(){
         List<ListItem> lists = new ArrayList<>();
         List<ItemCard> cardItems_crops = new ArrayList<>();
+        List<ItemCard> cardItems = new ArrayList<>();
         List<ItemCard> cardItems_fertilizers = new ArrayList<>();
-        cardItems_crops.add(new ItemCard(R.drawable.wheat, "Wheat"));
-        cardItems_crops.add(new ItemCard(R.drawable.wheat, "Rice"));
-        cardItems_crops.add(new ItemCard(R.drawable.wheat, "Maize"));
-        cardItems_crops.add(new ItemCard(R.drawable.wheat, "Mustard"));
-        cardItems_crops.add(new ItemCard(R.drawable.wheat, "Sugarcane"));
-        cardItems_crops.add(new ItemCard(R.drawable.wheat, "Cotton"));
-        cardItems_crops.add(new ItemCard(R.drawable.wheat, "Potato"));
-        cardItems_fertilizers.add(new ItemCard(R.drawable.wheat, "Sodium Nitrate"));
-        cardItems_fertilizers.add(new ItemCard(R.drawable.wheat, "Ammonium Nitrate"));
-        cardItems_fertilizers.add(new ItemCard(R.drawable.wheat, "Rock phosphate"));
-        cardItems_fertilizers.add(new ItemCard(R.drawable.wheat, "Monoammonium Phosphate"));
-        cardItems_fertilizers.add(new ItemCard(R.drawable.wheat, "Potassium Sulphate"));
-        cardItems_fertilizers.add(new ItemCard(R.drawable.wheat, "Potassium Chloride (muriate)"));
-        cardItems_fertilizers.add(new ItemCard(R.drawable.wheat, "Potassium Nitrate"));
+        for(String[] row : scoreList) {
+            List<String> info = new ArrayList<>();
+            for(int i = 3; i < row.length; i++) {
+                info.add(row[i]);
+            }
+            if(row[0].equals("crop")) {
+                cardItems_crops.add(new ItemCard(R.drawable.wheat, row[1], info));
+            }
+            if(row[0].equals("fert")) {
+                cardItems_fertilizers.add(new ItemCard(R.drawable.wheat, row[1], info));
+            }
+        }
         lists.add(new ListItem("Crops", cardItems_crops));
         lists.add(new ListItem("Fertilizers", cardItems_fertilizers));
         return lists;
     }
+
 
     /**
      * This interface must be implemented by activities that contain this
@@ -231,7 +240,8 @@ public class CropFertilizerDataFragment extends Fragment implements CardRecycler
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface CallbackInterface {
-
+        void onClickItemCard(ItemCard itemCard);
+        void setTitle(String title);
     }
 
 
