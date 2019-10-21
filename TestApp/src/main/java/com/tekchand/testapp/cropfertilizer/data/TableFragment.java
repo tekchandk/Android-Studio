@@ -14,6 +14,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.tekchand.testapp.R;
+import com.tekchand.testapp.title.ActionBarTitle;
 
 
 public class TableFragment extends Fragment {
@@ -77,7 +78,6 @@ public class TableFragment extends Fragment {
 
     private void setInfoItemCard(ItemCard itemCard) {
         Log.d("Amount: ", itemCard.getInfo().get(0));
-        mNitrogen.setText("jkhjhkhhjk");
         mNitrogen.setText(itemCard.getInfo().get(0));
         mPhosphate.setText(itemCard.getInfo().get(1));
         mPottasium.setText(itemCard.getInfo().get(2));
@@ -90,7 +90,15 @@ public class TableFragment extends Fragment {
         mOrgCarbon.setText(itemCard.getInfo().get(9));
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        setActionbarTitle();
+    }
 
+    private void setActionbarTitle() {
+        mListener.setActionBarTitle(mItemCard.getTitle());
+    }
 
 
     /**
@@ -103,7 +111,7 @@ public class TableFragment extends Fragment {
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
      */
-    public interface CallbackInterface {
+    public interface CallbackInterface extends ActionBarTitle {
     }
 
 

@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.tekchand.testapp.R;
+import com.tekchand.testapp.title.ActionBarTitle;
 
 import static com.tekchand.testapp.constant.Constants.IONS;
 
@@ -85,6 +86,16 @@ public class IonsList extends Fragment {
         recyclerView.setAdapter(adapter);
     }
 
+    @Override
+    public void onResume(){
+        super.onResume();
+        setActionbarTitle();
+    }
+
+    private void setActionbarTitle() {
+        mListener.setActionBarTitle("Readings");
+    }
+
 
     /**
      * This interface must be implemented by activities that contain this
@@ -96,7 +107,7 @@ public class IonsList extends Fragment {
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
      */
-    public interface CallbackInterface {
+    public interface CallbackInterface extends ActionBarTitle {
     }
 
 }

@@ -28,7 +28,7 @@
     <RelativeLayout
         android:id="@+id/home_container"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_below="@+id/toolbar_item1">
         <ImageView
             android:id="@+id/imageView"
@@ -65,7 +65,7 @@
             android:layout_height="wrap_content"
             android:text="Tap on a card to navigate. Longpress to read a brief description."
             android:textColor="@color/Black"
-            android:textSize="20dp"
+            android:textSize="20sp"
             android:layout_marginRight="30dp"
             android:layout_marginLeft="30dp"
             android:layout_marginTop="0dp"

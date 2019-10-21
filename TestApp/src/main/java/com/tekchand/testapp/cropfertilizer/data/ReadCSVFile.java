@@ -6,15 +6,16 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+
 public  class ReadCSVFile {
-    InputStream inputStream;
+    private InputStream inputStream;
 
     public ReadCSVFile(InputStream inputStream){
         this.inputStream = inputStream;
     }
 
-    public List read(){
-        List<String[]> resultList = new ArrayList();
+    public List<String[]> read(){
+        List<String[]> resultList = new ArrayList<>();
         BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
         try {
             String csvLine;

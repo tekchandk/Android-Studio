@@ -1,9 +1,7 @@
 package com.tekchand.testapp.cropfertilizer.data;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.tekchand.testapp.R;
+import com.tekchand.testapp.title.ActionBarTitle;
 
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -36,13 +35,10 @@ public class CropFertilizerDataFragment extends Fragment implements CardRecycler
     private Animation fabOpen, fabClose, fabClockwise, fabAnticlockwise;
     private boolean isOpen = false;
     private AlertDialog alertDialog1;
-    private CharSequence[] values = {" Crop "," Fertilizer "};
+    private ReadCSVFile readCSVFile;
     private List <String[]> scoreList;
-
-
-
-   // lists.add(new ListItem());
-
+    private List<ListItem> items;
+    private CharSequence[] titles;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -78,11 +74,11 @@ public class CropFertilizerDataFragment extends Fragment implements CardRecycler
         fabClose = AnimationUtils.loadAnimation(getContext(), R.anim.fab_close);
         fabClockwise = AnimationUtils.loadAnimation(getContext(), R.anim.rotate_clockwise);
         fabAnticlockwise = AnimationUtils.loadAnimation(getContext(), R.anim.rotate_anticlockwise);
-        ReadCSVFile csvFile = null;
         InputStream inputStream = getResources().openRawResource(R.raw.data);
-        csvFile = new ReadCSVFile(inputStream);
-        scoreList = csvFile.read();
-
+        readCSVFile = new ReadCSVFile(inputStream);
+        scoreList = readCSVFile.read();
+        items =getItems();
+        titles = getTitles(items);
     }
 
 
@@ -94,7 +90,7 @@ public class CropFertilizerDataFragment extends Fragment implements CardRecycler
 
         recyclerViewCards.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        CardsRecyclerAdapter adapter = new CardsRecyclerAdapter(getItems(), getContext(), this);
+        CardsRecyclerAdapter adapter = new CardsRecyclerAdapter(items, getContext(), this);
 
         recyclerViewCards.setAdapter(adapter);
 
@@ -110,7 +106,7 @@ public class CropFertilizerDataFragment extends Fragment implements CardRecycler
                       newText = newText.toLowerCase();
                       List<ListItem> mList = new ArrayList<>();
 
-                      for (ListItem listItem : getItems()) {
+                      for (ListItem listItem : items) {
                           List<ItemCard> mCardList = new ArrayList<>();
                           ListItem listItem1 = listItem;
                           for (ItemCard card : listItem.getItems()) {
@@ -129,82 +125,60 @@ public class CropFertilizerDataFragment extends Fragment implements CardRecycler
               }
         );
 
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(isOpen) {
-                    fabEdit.startAnimation(fabClose);
-                    fabDownload.startAnimation(fabClose);
-                    fab.startAnimation(fabAnticlockwise);
-                    fabEdit.setClickable(false);
-                    fabDownload.setClickable(false);
-                    isOpen = false;
-
-                }
-                else {
-                    fabEdit.startAnimation(fabOpen);
-                    fabDownload.startAnimation(fabOpen);
-                    fab.startAnimation(fabClockwise);
-                    fabEdit.setClickable(true);
-                    fabDownload.setClickable(true);
-                    isOpen = true;
-                }
+        fab.setOnClickListener(v -> {
+            if(isOpen) {
+                fabEdit.startAnimation(fabClose);
+                fabDownload.startAnimation(fabClose);
+                fab.startAnimation(fabAnticlockwise);
+                fabEdit.setClickable(false);
+                fabDownload.setClickable(false);
+                isOpen = false;
 
             }
-        });
-
-        fabEdit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-
-                builder.setTitle("What do you want to add?");
-
-                builder.setSingleChoiceItems(values, 0, new DialogInterface.OnClickListener() {
-
-                    @Override
-                    public void onClick(DialogInterface dialog, int item) {
-
-                        switch(item)
-                        {
-                            case 0:
-                                Toast.makeText(getActivity(), "Crop", Toast.LENGTH_LONG).show();
-                                break;
-                            case 1:
-
-                                Toast.makeText(getActivity(), "Fertilizer", Toast.LENGTH_LONG).show();
-                                break;
-                        }
-                    }
-                });
-
-                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        AlertDialog alert = (AlertDialog)dialog;
-                        int position = alert.getListView().getCheckedItemPosition();
-                        Log.d("Item", String.valueOf(position));
-                    }
-                });
-
-                builder.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                });
-                alertDialog1 = builder.create();
-                alertDialog1.show();
+            else {
+                fabEdit.startAnimation(fabOpen);
+                fabDownload.startAnimation(fabOpen);
+                fab.startAnimation(fabClockwise);
+                fabEdit.setClickable(true);
+                fabDownload.setClickable(true);
+                isOpen = true;
             }
+
         });
 
+        fabEdit.setOnClickListener(v -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+
+            builder.setTitle("What do you want to add?");
+
+            builder.setSingleChoiceItems(titles, 0, (dialog, item) ->
+                    Toast.makeText(getActivity(), titles[item],Toast.LENGTH_SHORT).show());
+
+            builder.setPositiveButton("OK", (dialog, which) -> {
+
+            });
+
+            builder.setNegativeButton("CANCEL", (dialog, which) -> dialog.dismiss());
+            alertDialog1 = builder.create();
+            alertDialog1.show();
+        });
     }
 
     @Override
     public void onClick(ItemCard card) {
         mListener.onClickItemCard(card);
-        mListener.setTitle(card.getTitle());
     }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        setActionbarTitle();
+    }
+
+    private void setActionbarTitle() {
+        mListener.setActionBarTitle("Crop & Fertilizer");
+    }
+
 
     private List<ListItem> getItems(){
         List<ListItem> lists = new ArrayList<>();
@@ -228,6 +202,12 @@ public class CropFertilizerDataFragment extends Fragment implements CardRecycler
         return lists;
     }
 
+    private CharSequence[] getTitles(@NonNull List<ListItem> lists) {
+        CharSequence[] titles = new CharSequence[lists.size()];
+        for (int i=0;i<titles.length;i++)
+            titles[i] = lists.get(i).getTitle();
+        return titles;
+    }
 
     /**
      * This interface must be implemented by activities that contain this
@@ -239,9 +219,9 @@ public class CropFertilizerDataFragment extends Fragment implements CardRecycler
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
      */
-    public interface CallbackInterface {
+    public interface CallbackInterface extends ActionBarTitle {
         void onClickItemCard(ItemCard itemCard);
-        void setTitle(String title);
+        //void setTitle(String title);
     }
 
 

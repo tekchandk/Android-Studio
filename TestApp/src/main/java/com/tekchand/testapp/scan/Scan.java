@@ -12,6 +12,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.tekchand.testapp.R;
+import com.tekchand.testapp.title.ActionBarTitle;
 
 
 public class Scan extends Fragment {
@@ -73,6 +74,16 @@ public class Scan extends Fragment {
 
     }
 
+    @Override
+    public void onResume(){
+        super.onResume();
+        setActionbarTitle();
+    }
+
+    private void setActionbarTitle() {
+        mListener.setActionBarTitle("Scan");
+    }
+
 
     /**
      * This interface must be implemented by activities that contain this
@@ -84,7 +95,8 @@ public class Scan extends Fragment {
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
      */
-    public interface CallbackInterface {
+    public interface CallbackInterface extends ActionBarTitle {
+
     }
 
 }
