@@ -114,7 +114,6 @@ public class CropFertilizerDataFragment extends Fragment implements CardRecycler
                               if (name.contains(newText)) {
                                   mCardList.add(card);
                               }
-
                               listItem1.setItems(mCardList);
                           }
                           mList.add(listItem1);

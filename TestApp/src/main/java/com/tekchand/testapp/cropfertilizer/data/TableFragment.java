@@ -3,7 +3,6 @@ package com.tekchand.testapp.cropfertilizer.data;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,20 +15,23 @@ import androidx.fragment.app.Fragment;
 import com.tekchand.testapp.R;
 import com.tekchand.testapp.title.ActionBarTitle;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class TableFragment extends Fragment {
 
     private CallbackInterface mListener;
     private ItemCard mItemCard;
 
-    private TextView mNitrogen, mPhosphate,
-            mPottasium, mZinc, mSulphur, mBoron,
+    private List<TextView>  mListIOns = new ArrayList<>();
+
+    private TextView mNitrogen, mPhosphate, mPottasium, mZinc, mSulphur, mBoron,
             mManganese, mCopper, mIron, mOrgCarbon;
     public TableFragment(ItemCard itemCard) {
         mItemCard = itemCard;
 
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -73,23 +75,24 @@ public class TableFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+            mListIOns.add(mNitrogen);
+            mListIOns.add(mPhosphate);
+            mListIOns.add(mPottasium);
+            mListIOns.add(mBoron);
+            mListIOns.add(mSulphur);
+            mListIOns.add(mManganese);
+            mListIOns.add(mCopper);
+            mListIOns.add(mZinc);
+            mListIOns.add(mIron);
+            mListIOns.add(mOrgCarbon);
         setInfoItemCard(mItemCard);
     }
 
     private void setInfoItemCard(ItemCard itemCard) {
-        Log.d("Amount: ", itemCard.getInfo().get(0));
-        mNitrogen.setText(itemCard.getInfo().get(0));
-        mPhosphate.setText(itemCard.getInfo().get(1));
-        mPottasium.setText(itemCard.getInfo().get(2));
-        mZinc.setText(itemCard.getInfo().get(3));
-        mSulphur.setText(itemCard.getInfo().get(4));
-        mBoron.setText(itemCard.getInfo().get(5));
-        mManganese.setText(itemCard.getInfo().get(6));
-        mCopper.setText(itemCard.getInfo().get(7));
-        mIron.setText(itemCard.getInfo().get(8));
-        mOrgCarbon.setText(itemCard.getInfo().get(9));
+        for (int i = 0; i < 10; i++) {
+            mListIOns.get(i).setText(itemCard.getInfo().get(i));
+        }
     }
-
     @Override
     public void onResume() {
         super.onResume();
@@ -100,17 +103,6 @@ public class TableFragment extends Fragment {
         mListener.setActionBarTitle(mItemCard.getTitle());
     }
 
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
     public interface CallbackInterface extends ActionBarTitle {
     }
 

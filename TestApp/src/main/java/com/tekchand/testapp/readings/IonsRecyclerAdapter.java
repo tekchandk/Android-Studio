@@ -15,7 +15,6 @@ public class IonsRecyclerAdapter extends RecyclerView.Adapter<IonsRecyclerAdapte
     private String[] ions;
     private OnClickListener listener;
 
-
     public interface OnClickListener {
         void onClick(String ion);
     }
@@ -56,10 +55,5 @@ public class IonsRecyclerAdapter extends RecyclerView.Adapter<IonsRecyclerAdapte
                 ionName.setText(ions[position]);
                 cardView.setOnClickListener(v -> listener.onClick(ions[position]));
             }
-
-            private void onClick(View v) {
-
-            }
-
         }
 }

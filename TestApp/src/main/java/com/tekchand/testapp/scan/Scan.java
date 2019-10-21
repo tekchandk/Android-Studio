@@ -21,12 +21,6 @@ public class Scan extends Fragment {
     private Button startScanButton;
     private View view;
 
-    /**
-     * get the new Instance of Tab2Fragment
-     * @return fragment a new instance of Tab2Fragment
-     */
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -69,9 +63,6 @@ public class Scan extends Fragment {
                 inflater.inflate(R.layout.scaning, (ViewGroup) view);
             }
         });
-
-
-
     }
 
     @Override
@@ -84,19 +75,6 @@ public class Scan extends Fragment {
         mListener.setActionBarTitle("Scan");
     }
 
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
     public interface CallbackInterface extends ActionBarTitle {
-
     }
-
 }

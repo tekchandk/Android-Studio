@@ -20,15 +20,9 @@ import com.tekchand.testapp.title.ActionBarTitle;
 import static com.tekchand.testapp.constant.Constants.IONS;
 
 
-public class IonsList extends Fragment {
+public class IonsListFragment extends Fragment {
     private RecyclerView recyclerView;
     private CallbackInterface mListener;
-
-    /**
-     * get the new Instance of Tab2Fragment
-     * @return fragment a new instance of Tab2Fragment
-     */
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

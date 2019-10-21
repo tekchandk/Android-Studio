@@ -14,7 +14,7 @@ import com.tekchand.testapp.adapter.home.HomeAdapter;
 import com.tekchand.testapp.cropfertilizer.data.CropFertilizerDataFragment;
 import com.tekchand.testapp.cropfertilizer.data.ItemCard;
 import com.tekchand.testapp.cropfertilizer.data.TableFragment;
-import com.tekchand.testapp.readings.IonsList;
+import com.tekchand.testapp.readings.IonsListFragment;
 import com.tekchand.testapp.scan.Scan;
 import com.tekchand.testapp.title.ActionBarTitle;
 
@@ -22,7 +22,7 @@ import static com.tekchand.testapp.constant.Constants.IMAGESID;
 import static com.tekchand.testapp.constant.Constants.NAMES;
 
 public class HomeActivity extends AppCompatActivity implements
-        IonsList.CallbackInterface,
+        IonsListFragment.CallbackInterface,
         Scan.CallbackInterface,
         CropFertilizerDataFragment.CallbackInterface,
         TableFragment.CallbackInterface,
@@ -39,8 +39,6 @@ public class HomeActivity extends AppCompatActivity implements
         mToolbar = findViewById(R.id.toolbar_item1);
 
         setSupportActionBar(mToolbar);
-        getSupportActionBar().setDisplayShowCustomEnabled(false);
-        //mToolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
         getSupportActionBar().setDisplayShowTitleEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -48,12 +46,7 @@ public class HomeActivity extends AppCompatActivity implements
         layoutManager = new GridLayoutManager(HomeActivity.this, 2);
         homeRecyclerView.setHasFixedSize(true);
         homeRecyclerView.setLayoutManager(layoutManager);
-        HomeAdapter homeAdapter = new HomeAdapter(NAMES,IMAGESID, new HomeAdapter.OnClickListener() {
-            @Override
-            public void onClick(String function) {
-                fragmentTransaction(function);
-            }
-        });
+        HomeAdapter homeAdapter = new HomeAdapter(NAMES,IMAGESID, function -> fragmentTransaction(function));
         homeRecyclerView.setAdapter(homeAdapter);
     }
 
@@ -64,12 +57,12 @@ public class HomeActivity extends AppCompatActivity implements
             fragment = new Scan();
         }
         else if(function.equals("Readings")) {
-            fragment = new IonsList();
+            fragment = new IonsListFragment();
         }
         else if(function.equals("Crop & Fertilizer Data")) {
             fragment = new CropFertilizerDataFragment();
         }
-        transaction.replace(R.id.home_container, fragment); // fragment container id in first parameter is the  container(Main layout id) of Activity
+        transaction.add(R.id.home_container, fragment); // fragment container id in first parameter is the  container(Main layout id) of Activity
         transaction.addToBackStack(null);  // this will manage backstack
         transaction.commit();
     }
@@ -78,20 +71,31 @@ public class HomeActivity extends AppCompatActivity implements
     @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();
+
         return true;
     }
 
-
     @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        int numberOfFragment = (getSupportFragmentManager().getBackStackEntryCount() - 1);
+        if (numberOfFragment >= 0) {
+            Fragment previousFragment = (Fragment) getSupportFragmentManager().getFragments().get(numberOfFragment);
+            if (previousFragment != null) {
+                previousFragment.onResume();
+            }
+        } else {
+            this.onResume();
+        }
+    }
+
     public void onClickItemCard(ItemCard itemCard) {
         Fragment fragment= new TableFragment(itemCard);
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.crop_fertilizer_data_fragment, fragment); // fragment container id in first parameter is the  container(Main layout id) of Activity
+        transaction.add(R.id.crop_fertilizer_data_fragment, fragment); // fragment container id in first parameter is the  container(Main layout id) of Activity
         transaction.addToBackStack(null);  // this will manage backstack
         transaction.commit();
     }
-
-
 
     @Override
     public void onResume() {
