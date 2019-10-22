@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -33,8 +32,6 @@ import javax.inject.Inject;
 public class MainActivity extends AppCompatActivity implements Tab2Fragment.CallbackInterface, PlaceholderFragment.CallbackInterface, VmFragment.CallbackInterface, SessionFrag.CallbackInterface, CropFertilizerFragment.CallbackInterface {
     @Inject SectionsPagerAdapter sectionsPagerAdapter;
     private ViewPager viewPager;
-    private ImageButton imageButton;
-    private Toolbar myToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +44,7 @@ public class MainActivity extends AppCompatActivity implements Tab2Fragment.Call
         viewPager.setAdapter(sectionsPagerAdapter);
         TabLayout tabs = findViewById(R.id.tabs);
         tabs.setupWithViewPager(viewPager);
-        myToolbar = findViewById(R.id.toolbar);
+        Toolbar myToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(myToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
     }

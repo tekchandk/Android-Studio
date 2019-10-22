@@ -21,6 +21,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.tekchand.testapp.R;
 import com.tekchand.testapp.title.ActionBarTitle;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +37,6 @@ public class CropFertilizerDataFragment extends Fragment implements CardRecycler
     private Animation fabOpen, fabClose, fabClockwise, fabAnticlockwise;
     private boolean isOpen = false;
     private AlertDialog alertDialog1;
-    private ReadCSVFile readCSVFile;
     private List <String[]> scoreList;
     private List<ListItem> items;
     private CharSequence[] titles;
@@ -46,7 +47,7 @@ public class CropFertilizerDataFragment extends Fragment implements CardRecycler
     }
 
     @Override
-    public void onAttach(Context context) {
+    public void onAttach(@NotNull Context context) {
         super.onAttach(context);
         if (context instanceof CallbackInterface) {
             mListener = (CallbackInterface) context;
@@ -75,7 +76,7 @@ public class CropFertilizerDataFragment extends Fragment implements CardRecycler
         fabClockwise = AnimationUtils.loadAnimation(getContext(), R.anim.rotate_clockwise);
         fabAnticlockwise = AnimationUtils.loadAnimation(getContext(), R.anim.rotate_anticlockwise);
         InputStream inputStream = getResources().openRawResource(R.raw.data);
-        readCSVFile = new ReadCSVFile(inputStream);
+        ReadCSVFile readCSVFile = new ReadCSVFile(inputStream);
         scoreList = readCSVFile.read();
         items =getItems();
         titles = getTitles(items);
@@ -108,15 +109,14 @@ public class CropFertilizerDataFragment extends Fragment implements CardRecycler
 
                       for (ListItem listItem : items) {
                           List<ItemCard> mCardList = new ArrayList<>();
-                          ListItem listItem1 = listItem;
                           for (ItemCard card : listItem.getItems()) {
                               String name = card.getTitle().toLowerCase();
                               if (name.contains(newText)) {
                                   mCardList.add(card);
                               }
-                              listItem1.setItems(mCardList);
+                              listItem.setItems(mCardList);
                           }
-                          mList.add(listItem1);
+                          mList.add(listItem);
                       }
                       adapter.setSearchOperation(mList);
                       return false;
@@ -132,7 +132,6 @@ public class CropFertilizerDataFragment extends Fragment implements CardRecycler
                 fabEdit.setClickable(false);
                 fabDownload.setClickable(false);
                 isOpen = false;
-
             }
             else {
                 fabEdit.startAnimation(fabOpen);
@@ -192,7 +191,7 @@ public class CropFertilizerDataFragment extends Fragment implements CardRecycler
             if(row[0].equals("crop")) {
                 cardItems_crops.add(new ItemCard(R.drawable.wheat, row[1], info));
             }
-            if(row[0].equals("fert")) {
+            else if(row[0].equals("fert")) {
                 cardItems_fertilizers.add(new ItemCard(R.drawable.wheat, row[1], info));
             }
         }
@@ -208,19 +207,8 @@ public class CropFertilizerDataFragment extends Fragment implements CardRecycler
         return titles;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
     public interface CallbackInterface extends ActionBarTitle {
         void onClickItemCard(ItemCard itemCard);
-        //void setTitle(String title);
     }
 
 

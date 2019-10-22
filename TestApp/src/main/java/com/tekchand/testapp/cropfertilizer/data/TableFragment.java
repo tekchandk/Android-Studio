@@ -18,19 +18,24 @@ import com.tekchand.testapp.title.ActionBarTitle;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * Table fragment shows the data of soil nutrients in a table
+ */
 public class TableFragment extends Fragment {
 
     private CallbackInterface mListener;
     private ItemCard mItemCard;
 
-    private List<TextView>  mListIOns = new ArrayList<>();
+    private List<TextView>  mListIons = new ArrayList<>();
 
     private TextView mNitrogen, mPhosphate, mPottasium, mZinc, mSulphur, mBoron,
             mManganese, mCopper, mIron, mOrgCarbon;
+
+    private int[] ionId = {R.id.nitrogen_amt, R.id.phosphate_amt, R.id.pottasium_amt,R.id.boron_amt, R.id.sulphur_amt,
+            R.id.manganese_amt, R.id.copper_amt, R.id.zinc_amt, R.id.iron_amt, R.id.org_carbon_amt};
+
     public TableFragment(ItemCard itemCard) {
         mItemCard = itemCard;
-
     }
 
     @Override
@@ -60,37 +65,34 @@ public class TableFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mNitrogen = view.findViewById(R.id.nitrogen_amt);
-        mPhosphate = view.findViewById(R.id.phosphate_amt);
-        mPottasium = view.findViewById(R.id.pottasium_amt);
-        mBoron = view.findViewById(R.id.boron_amt);
-        mSulphur = view.findViewById(R.id.sulphur_amt);
-        mManganese = view.findViewById(R.id.manganese_amt);
-        mCopper = view.findViewById(R.id.copper_amt);
-        mZinc = view.findViewById(R.id.zinc_amt);
-        mIron = view.findViewById(R.id.iron_amt);
-        mOrgCarbon = view.findViewById(R.id.org_carbon_amt);
+        mListIons.add(mNitrogen);
+        mListIons.add(mPhosphate);
+        mListIons.add(mPottasium);
+        mListIons.add(mBoron);
+        mListIons.add(mSulphur);
+        mListIons.add(mManganese);
+        mListIons.add(mCopper);
+        mListIons.add(mZinc);
+        mListIons.add(mIron);
+        mListIons.add(mOrgCarbon);
+        for(int i = 0; i < ionId.length; i++) {
+            mListIons.set(i,view.findViewById(ionId[i]));
+        }
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-            mListIOns.add(mNitrogen);
-            mListIOns.add(mPhosphate);
-            mListIOns.add(mPottasium);
-            mListIOns.add(mBoron);
-            mListIOns.add(mSulphur);
-            mListIOns.add(mManganese);
-            mListIOns.add(mCopper);
-            mListIOns.add(mZinc);
-            mListIOns.add(mIron);
-            mListIOns.add(mOrgCarbon);
         setInfoItemCard(mItemCard);
     }
 
+    /**
+     * set the value of N,P, and K, etc. in the nutrients table
+     * @param itemCard is a Crop or Fertilizer name.
+     */
     private void setInfoItemCard(ItemCard itemCard) {
-        for (int i = 0; i < 10; i++) {
-            mListIOns.get(i).setText(itemCard.getInfo().get(i));
+        for (int i = 0; i < ionId.length; i++) {
+            mListIons.get(i).setText(itemCard.getInfo().get(i));
         }
     }
     @Override
@@ -99,12 +101,13 @@ public class TableFragment extends Fragment {
         setActionbarTitle();
     }
 
+    /**
+     * set the title of the action bar according to the card that user chooses.
+     */
     private void setActionbarTitle() {
         mListener.setActionBarTitle(mItemCard.getTitle());
     }
 
     public interface CallbackInterface extends ActionBarTitle {
     }
-
-
 }

@@ -14,8 +14,12 @@ import androidx.fragment.app.Fragment;
 import com.tekchand.testapp.R;
 import com.tekchand.testapp.title.ActionBarTitle;
 
+import org.jetbrains.annotations.NotNull;
 
-public class Scan extends Fragment {
+import static com.tekchand.testapp.constant.Constants.NAMES;
+
+
+public class ScanFragment extends Fragment {
 
     private CallbackInterface mListener;
     private Button startScanButton;
@@ -29,7 +33,7 @@ public class Scan extends Fragment {
     }
 
     @Override
-    public void onAttach(Context context) {
+    public void onAttach(@NotNull Context context) {
         super.onAttach(context);
         if (context instanceof CallbackInterface) {
             mListener = (CallbackInterface) context;
@@ -55,14 +59,14 @@ public class Scan extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        LayoutInflater inflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        startScanButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        if(getActivity() != null) {
+            LayoutInflater inflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            startScanButton.setOnClickListener(v -> {
                 startScanButton.setVisibility(View.GONE);
+                assert inflater != null;
                 inflater.inflate(R.layout.scaning, (ViewGroup) view);
-            }
-        });
+            });
+        }
     }
 
     @Override
@@ -72,7 +76,7 @@ public class Scan extends Fragment {
     }
 
     private void setActionbarTitle() {
-        mListener.setActionBarTitle("Scan");
+        mListener.setActionBarTitle(NAMES[0]);
     }
 
     public interface CallbackInterface extends ActionBarTitle {

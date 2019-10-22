@@ -31,8 +31,7 @@ public class CardsRecyclerAdapter extends RecyclerView.Adapter<CardsRecyclerAdap
     @Override
     public SimpleViewHolder onCreateViewHolder(@NonNull final ViewGroup parent, @NonNull final int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_items,parent, false);
-        SimpleViewHolder viewHolder = new SimpleViewHolder(view, mContext, mListener);
-        return viewHolder;
+        return new SimpleViewHolder(view, mContext, mListener);
     }
 
     @Override
@@ -61,20 +60,15 @@ public class CardsRecyclerAdapter extends RecyclerView.Adapter<CardsRecyclerAdap
         private void dataBind(final ListItem item) {
             listTitle.setText(item.getTitle());
             recyclerViewCard.setHasFixedSize(true);
-
             recyclerViewCard.setLayoutManager(new LinearLayoutManager(mContext));
-
             CardRecyclerAdapter adapter = new CardRecyclerAdapter(item.getItems(), mListener);
-
             recyclerViewCard.setAdapter(adapter);
         }
-
     }
 
     public void setSearchOperation(List<ListItem> lists) {
         listsItem = new ArrayList<>();
         listsItem.addAll(lists);
         notifyDataSetChanged();
-
     }
 }

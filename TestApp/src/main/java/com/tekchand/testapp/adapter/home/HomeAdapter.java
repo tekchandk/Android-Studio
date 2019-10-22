@@ -14,13 +14,14 @@ import com.tekchand.testapp.R;
 
 public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.SimpleViewHolder> {
 
-    private String names[];
-    private int imageId[];
+    private String[] names;
+    private int[] imageId;
     private OnClickListener listener;
 
 
     public interface OnClickListener {
         void onClick(String name);
+        void onLongPress(String name);
     }
 
     public HomeAdapter(String[] names, int[] imageId, OnClickListener listener) {
@@ -33,8 +34,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.SimpleViewHold
     @Override
     public SimpleViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item1, parent, false);
-        SimpleViewHolder viewHolder = new SimpleViewHolder(view);
-        return viewHolder;
+        return new SimpleViewHolder(view);
     }
 
     @Override
@@ -56,15 +56,14 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.SimpleViewHold
         private void dataBind(final String[] names, final int[] imagesId,  int position, final OnClickListener listener ) {
             name.setText(names[position]);
             image.setImageResource(imagesId[position]);
-            cardView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    listener.onClick(names[position]);
-
-                }
+            cardView.setOnClickListener(v -> {
+                listener.onClick(names[position]);
+            });
+            cardView.setOnLongClickListener(v -> {
+                 listener.onLongPress(names[position]);
+                 return false;
             });
         }
-
     }
 
     @Override

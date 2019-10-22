@@ -4,6 +4,10 @@ import androidx.annotation.NonNull;
 
 import java.util.List;
 
+/**
+ * @author Tel Chand
+ * This class shows that a list of items with its title.
+ */
 public class ListItem {
 
     @NonNull

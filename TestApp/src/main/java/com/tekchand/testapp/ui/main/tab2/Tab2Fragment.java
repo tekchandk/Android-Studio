@@ -33,8 +33,7 @@ public class Tab2Fragment extends Fragment {
      * @return fragment a new instance of Tab2Fragment
      */
     public static Tab2Fragment newInstance() {
-        Tab2Fragment fragment = new Tab2Fragment();
-        return fragment;
+        return new Tab2Fragment();
     }
 
     @Override
@@ -79,17 +78,14 @@ public class Tab2Fragment extends Fragment {
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        adapter = new HumanRecyclerAdapter(humans, new HumanRecyclerAdapter.OnClickListener() {
-            @Override
-            public void onClick(Human human) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-            builder.setMessage("Name: " + human.getName() + "\n" + "Location: " + human.getLocation() + "\n" + "Email: " + human.getEmail());
-            builder.setTitle("Hi");
-           // builder.setIcon(R.drawable.ic_close_black_24dp);
-            builder.setNegativeButton("Cancel", null);
-            builder.create();
-            builder.show();
-            }
+        adapter = new HumanRecyclerAdapter(humans, human -> {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setMessage("Name: " + human.getName() + "\n" + "Location: " + human.getLocation() + "\n" + "Email: " + human.getEmail());
+        builder.setTitle("Hi");
+       // builder.setIcon(R.drawable.ic_close_black_24dp);
+        builder.setNegativeButton("Cancel", null);
+        builder.create();
+        builder.show();
         });
 
         recyclerView.setAdapter(adapter);

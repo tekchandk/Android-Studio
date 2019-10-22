@@ -14,6 +14,11 @@ public  class ReadCSVFile {
         this.inputStream = inputStream;
     }
 
+
+    /**
+     * Change a CSV file data in a list of string array.
+     * @return shows a list of string array.
+     */
     public List<String[]> read(){
         List<String[]> resultList = new ArrayList<>();
         BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
