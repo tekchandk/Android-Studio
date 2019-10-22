@@ -1,10 +1,10 @@
 package com.tekchand.testapp.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -23,28 +23,28 @@ import com.tekchand.testapp.ui.main.tab3.VmFragment;
 import com.tekchand.testapp.ui.main.tab4.SessionFrag;
 import com.tekchand.testapp.ui.main.tab5.CropFertilizerFragment;
 
+import javax.inject.Inject;
+
 /**
  * @author Tek Chand
  * This activity show the data in four tab layout.
  */
 public class MainActivity extends AppCompatActivity implements Tab2Fragment.CallbackInterface, PlaceholderFragment.CallbackInterface, VmFragment.CallbackInterface, SessionFrag.CallbackInterface, CropFertilizerFragment.CallbackInterface {
-
-    private SectionsPagerAdapter sectionsPagerAdapter;
+    @Inject SectionsPagerAdapter sectionsPagerAdapter;
     private ViewPager viewPager;
-    private ImageButton imageButton;
-    private Toolbar myToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager());
         viewPager = findViewById(R.id.view_pager);
         //imageButton = findViewById(R.id.vert_dots);
         viewPager.setAdapter(sectionsPagerAdapter);
         TabLayout tabs = findViewById(R.id.tabs);
         tabs.setupWithViewPager(viewPager);
-        myToolbar = findViewById(R.id.toolbar);
+        Toolbar myToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(myToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
     }
@@ -64,6 +64,9 @@ public class MainActivity extends AppCompatActivity implements Tab2Fragment.Call
                 return true;
             case R.id.item1:
                 Toast.makeText(this, "Item1 is selected" , Toast.LENGTH_SHORT).show();
+                Intent i = new Intent(MainActivity.this, HomeActivity.class);
+                startActivity(i);
+                sectionsPagerAdapter.getItem(viewPager.getCurrentItem());
                 return true;
             case R.id.item2:
                 Toast.makeText(this, "Item2 is selected" , Toast.LENGTH_SHORT).show();
@@ -71,6 +74,7 @@ public class MainActivity extends AppCompatActivity implements Tab2Fragment.Call
         }
         return false;
     }
+
 
     @Override
     public void onSubmit(Human human) {

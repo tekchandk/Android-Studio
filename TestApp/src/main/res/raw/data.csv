@@ -1,0 +1,25 @@
+type, name, picture, Nitrogen, Phosphate, Potassium, Zinc, Sulphur, Boron, Manganese, Copper, Iron, ORG Carbon
+crop,Wheat,null,150,45,35,null,null,null,null,null,null,null,null
+crop,Rice,null,135,45,30,null,null,null,null,null,null,null,null
+crop,Maize,null,65,40,30,null,null,null,null,null,null,null,null
+crop,Mustard,null,60,50,45,null,null,null,null,null,null,null,null
+crop,Sugarcane,null,200,65,40,null,null,null,null,null,null,null,null
+crop,Cotton,null,45,30,25,null,null,null,null,null,null,null,null
+crop,Potato,null,220,75,60,null,null,null,null,null,null,null,null
+fert,Urea(46% N)(While free flowing),null,46,0,0,null,null,null,null,null,null,null
+fert,Urea(coated)(45% N)(While free flowing),null,45,0,0,null,null,null,null,null,null,null
+fert,Calcium Ammonium Nitrate (25% N),null,25,0,0,null,null,null,null,null,null,null
+fert,Calcium Ammonium Nitrate (26% N),null,26,0,0,null,null,null,null,null,null,null
+fert,Ammonium sulphate,null,20.6,0,0,null,null,null,null,null,null,null
+fert,Ammonium phosphate - 20/20,null,16,0,0,null,null,null,null,null,null,null
+fert,Ammonium phosphate - 22/49,null,18,0,0,null,null,null,null,null,null,null
+fert,Sodium nitrate,null,15.5,0,0,null,null,null,null,null,null,null
+fert,Calcium nitrate,null,15.5,0,0,null,null,null,null,null,null,null
+fert,Ammonium Nitrate,null,34,0,0,null,null,null,null,null,null,null
+fert,Di-calcium phosphate,null,0,29.5,0,null,null,null,null,null,null,null
+fert,Rock phosphate,null,0,35,0,null,null,null,null,null,null,null
+fert,Diammonium Phosphate,null,18,46,0,null,null,null,null,null,null,null
+fert,Monoammonium Phosphate,null,11,48,0,null,null,null,null,null,null,null
+fert,Potassium sulphate,null,0,0,48,null,null,null,null,null,null,null
+fert,Potassium chloride (muriate),null,0,0,60,null,null,null,null,null,null,null
+fert,Potassium nitrate,null,13.8,0,44,null,null,null,null,null,null,null

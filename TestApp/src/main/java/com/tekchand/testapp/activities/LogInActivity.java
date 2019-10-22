@@ -4,11 +4,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
-import android.widget.TextView;
+import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -35,7 +34,6 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
     private Button loginBtn;
     private SharedPreferences.Editor editor;
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,13 +45,11 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
         loginBtn = findViewById(R.id.loginbutton);
         editor = sharedPreferences.edit();
         loginBtn.setOnClickListener(this);
-
-        emailText2.getEditText().setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                loginBtn.performClick();
-                return true;
-            }
+        EditText editText = emailText2.getEditText();
+        if(editText != null)
+        emailText2.getEditText().setOnEditorActionListener((v, actionId, event) -> {
+            loginBtn.performClick();
+            return true;
         });
     }
 
@@ -91,7 +87,6 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
         }
     }
 
-
     /**
      * Get the string from the edit text.
      * @param view
@@ -118,6 +113,7 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
                     return;
                 }
                 InputMethodManager imm = (InputMethodManager)getApplicationContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                if(imm != null)
                 imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
                 createLoginSession();
                 Intent i = new Intent(LogInActivity.this, MainActivity.class);

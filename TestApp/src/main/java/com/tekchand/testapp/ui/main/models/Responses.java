@@ -13,7 +13,7 @@ public class Responses{
 	private String prevPageToken;
 	private PageInfo pageInfo;
 	private String etag;
-	@SerializedName("items")
+	@SerializedName("card_item")
 	private List<ItemsItem> items;
 
 	public void setRegionCode(@NonNull final String regionCode){
@@ -83,7 +83,7 @@ public class Responses{
 			",prevPageToken = '" + prevPageToken + '\'' +
 			",pageInfo = '" + pageInfo + '\'' +
 			",etag = '" + etag + '\'' + 
-			",items = '" + items + '\'' + 
+			",card_item = '" + items + '\'' +
 			"}";
 		}
 }
